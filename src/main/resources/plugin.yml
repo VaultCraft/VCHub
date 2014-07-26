@@ -1,0 +1,13 @@
+###########
+# VCHub
+# Hub controller plugin (July 24, 2014)
+# Authors:
+#  Connor Hollasch
+#  Nick Peterson
+###########
+name: VCHub
+version: 1.0
+load: POSTWORLD
+authors: [IModZombies4Fun, Tacticalsk8er]
+softdepend: [VCUtils, VCEssentials]
+main: net.vaultcraft.vchub.VCHub
