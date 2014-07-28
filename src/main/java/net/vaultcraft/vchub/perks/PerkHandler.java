@@ -1,6 +1,5 @@
 package net.vaultcraft.vchub.perks;
 
-import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
@@ -14,11 +13,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Connor on 7/26/14. Designed for the VCHub project.
@@ -31,6 +30,7 @@ public class PerkHandler implements Listener {
 
     public PerkHandler() {
         perks.put(new SilverfishPerk(), "Silverfish Hat");
+        perks.put(new WolfPerk(), "Wolf Companion");
 
         Inventory inv = Bukkit.createInventory(null, (int)((double)perks.size()/9.0)+9, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);
@@ -87,8 +87,10 @@ public class PerkHandler implements Listener {
                     Form.at(player, Prefix.ERROR, "You cannot use this perk!");
                     return;
                 }
-
-                perk.start(player);
+                if(perk.isUsing(player))
+                    perk.stop(player);
+                else
+                    perk.start(player);
             }
         }
     }
@@ -153,8 +155,25 @@ public class PerkHandler implements Listener {
                 Menu child = open.remove(click).getChild(perks.get(perk));
                 click.openInventory(child.getActual());
                 open.put(click, child);
+                if(confirm.containsKey(click)) {
+                    Perk currentPerk = confirm.get(click);
+                    if(currentPerk.isUsing(click))
+                        currentPerk.start(click);
+                }
                 confirm.put(click, perk);
             }
+        }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        if(open.containsKey(event.getPlayer()))
+            open.remove(event.getPlayer());
+        if(confirm.containsKey(event.getPlayer())) {
+            Perk perk = confirm.get(event.getPlayer());
+            if(perk.isUsing(event.getPlayer()))
+                perk.stop(event.getPlayer());
+            confirm.remove(event.getPlayer());
         }
     }
 
