@@ -144,6 +144,11 @@ public class PerkHandler implements Listener {
                 if (perk == null)
                     return;
 
+                if (!(perk.canUse(click))) {
+                    Form.at(click, Prefix.ERROR, "You do not have permission to use this perk!");
+                    return;
+                }
+
                 click.closeInventory();
                 Menu child = open.remove(click).getChild(perks.get(perk));
                 click.openInventory(child.getActual());

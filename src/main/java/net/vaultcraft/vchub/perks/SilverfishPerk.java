@@ -25,10 +25,6 @@ public class SilverfishPerk implements Perk {
     private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte)60, "&7&lSilverfish Hat", "&fSpawn a silverfish on your head, make him your best buddy!");
     private static volatile List<Player> using = Lists.newArrayList();
 
-    public SilverfishPerk() {
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(VCHub.getInstance(), new SFISHTask(), 2, 2);
-    }
-
     public ItemStack getActivatorStack() {
         return active;
     }
@@ -60,17 +56,5 @@ public class SilverfishPerk implements Perk {
 
     public boolean canUse(Player player) {
         return true;
-    }
-
-    private class SFISHTask implements Runnable {
-        public void run() {
-            for (Player active : using) {
-                if (active.getPassenger() == null)
-                    continue;
-
-                Location loc = active.getPassenger().getLocation().clone().add(0, 2.1, 0);
-                Particles.SPELL.sendToLocation(loc, 0F, 0F, 0F, 1, 1);
-            }
-        }
     }
 }
