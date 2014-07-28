@@ -86,7 +86,7 @@ public class MicroPlugin_PrefsHandler implements Listener {
             builder.setChar('y', fromBoolean(prefs.get(UserPrefs.PRIVATE_MESSAGES)));
             builder.setChar('z', fromBoolean(prefs.get(UserPrefs.FORCE_DAYTIME)));
 
-            Inventory open = builder.build("&cSettings...");
+            Inventory open = builder.build("&cUser Settings...");
             player.openInventory(open);
             open_inv.add(player);
         }

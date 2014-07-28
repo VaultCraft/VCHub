@@ -68,7 +68,7 @@ public class MicroPlugin_PearlHandler implements Listener {
 
             shooter.teleport(build);
             shooter.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 160, 1));
-            shooter.getInventory().setItem(5, VCItems.PEARL_OF_TELEPORTATION);
+            shooter.getInventory().setItem(6, VCItems.PEARL_OF_TELEPORTATION);
             shooter.updateInventory();
         }
     }
