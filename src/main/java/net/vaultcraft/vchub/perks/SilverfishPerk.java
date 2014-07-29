@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
 import net.vaultcraft.vcutils.uncommon.Particles;
+import net.vaultcraft.vcutils.user.Group;
+import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -52,6 +54,6 @@ public class SilverfishPerk implements Perk {
     }
 
     public boolean canUse(Player player) {
-        return true;
+        return User.fromPlayer(player).getGroup().hasPermission(Group.SILVERFISH);
     }
 }
