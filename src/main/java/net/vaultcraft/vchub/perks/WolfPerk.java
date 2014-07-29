@@ -41,6 +41,7 @@ public class WolfPerk implements Perk {
             return;
         }
         Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+        wolf.setLeashHolder(player);
         wolf.setOwner(player);
         wolf.setTamed(true);
         wolf.setCustomName(player.getName() + "'s wolf");

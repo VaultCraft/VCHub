@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -46,6 +47,9 @@ public class MicroPlugin_SpeedHandler implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
+        if (event.getAction().equals(Action.PHYSICAL))
+            return;
+
         if (player.getItemInHand().equals(VCItems.SPEED_BOOST)) {
             if (cannotUse.contains(player))
                 return;

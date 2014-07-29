@@ -18,6 +18,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 
@@ -96,6 +97,12 @@ public class HubListener implements Listener {
     @EventHandler
     public void onEntitySpawn(CreatureSpawnEvent event) {
         if (!(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)))
+            event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onItemSpawn(ItemSpawnEvent event) {
+        if (event.getEntity().getItemStack().getType().equals(Material.LEASH))
             event.setCancelled(true);
     }
 

@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
@@ -41,6 +42,9 @@ public class MicroPlugin_PearlHandler implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (event.getAction().equals(Action.PHYSICAL))
+            return;
+
         if (player.getItemInHand().equals(VCItems.PEARL_OF_TELEPORTATION)) {
             event.setCancelled(true);
 
