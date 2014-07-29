@@ -1,12 +1,9 @@
 package net.vaultcraft.vchub.perks;
 
 import com.google.common.collect.Lists;
-import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
 import net.vaultcraft.vcutils.uncommon.Particles;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
