@@ -3,10 +3,10 @@ package net.vaultcraft.vchub.perks;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
+import net.vaultcraft.vcutils.uncommon.FireworkEffectPlayer;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
@@ -45,24 +45,28 @@ public class SlimePerk implements Perk {
             }
         }
         final List<Slime> slimes = new ArrayList<>();
-        float spread = 0.2f;
-        for(int i = 0; i < 25; i++) {
-            int randomSize = (int) (Math.random() * 3);
-            Slime slime = (Slime) player.getWorld().spawnEntity(player.getLocation(), EntityType.SLIME);
-            slime.setSize(randomSize);
-            Vector vector = player.getLocation().getDirection().add(new Vector(Math.random() * spread - spread, Math.random() - spread, Math.random() * spread - spread));
+        float spread = 0.07f;
+        for(int i = 0; i < 12; i++) {
+            final Slime slime = (Slime) player.getWorld().spawnEntity(player.getLocation(), EntityType.SLIME);
+            slime.setSize(1);
+            Vector vector = player.getEyeLocation().getDirection().multiply(1.5).add(new Vector((Math.random() * spread) - (spread / 2), 0, (Math.random() * spread) - (spread / 2))).setY(1.2);
             slime.setVelocity(vector.multiply(1.5));
             slimes.add(slime);
-        }
-        Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                for(Slime slime1: slimes) {
-                    slime1.remove();
+            Runnable delay = new Runnable() {
+                @Override
+                public void run() {
+                    Location at = slime.getLocation();
+                    try {
+                        FireworkEffectPlayer.playFirework(at.getWorld(), at, FireworkEffect.builder().withColor(Color.LIME).withFade(Color.GREEN).with(FireworkEffect.Type.BURST).trail(true).build());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    slime.remove();
+                    slimes.remove(slime);
                 }
-                slimes.clear();
-            }
-        }, 70);
+            };
+            Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), delay, 10+(i*2));
+        }
         cantUse.put(player.getName(), System.currentTimeMillis());
     }
 

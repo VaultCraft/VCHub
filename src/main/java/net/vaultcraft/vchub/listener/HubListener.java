@@ -5,6 +5,8 @@ import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vcutils.uncommon.Particles;
+import net.vaultcraft.vcutils.user.User;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -21,6 +23,8 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * Created by Connor on 7/23/14. Designed for the VCHub project.
@@ -40,7 +44,13 @@ public class HubListener implements Listener {
         player.getInventory().setItem(2, VCItems.SPEED_BOOST);
         player.getInventory().setItem(3, VCItems.NO_ACTIVE_PERK);
         player.getInventory().setItem(4, VCItems.PICK_PERK);
-        player.getInventory().setItem(5, VCItems.VAULT_COINS.clone());
+
+        ItemStack modify = VCItems.VAULT_COINS.clone();
+        ItemMeta meta = modify.getItemMeta();
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lTotal Tokens: &f&l"+ User.fromPlayer(player).getTokens()));
+        modify.setItemMeta(meta);
+        player.getInventory().setItem(5, modify);
+
         player.getInventory().setItem(6, VCItems.PEARL_OF_TELEPORTATION);
         player.getInventory().setItem(7, VCItems.MAP_BY);
         player.getInventory().setItem(8, VCItems.USER_SETTINGS.clone());

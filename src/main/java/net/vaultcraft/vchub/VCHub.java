@@ -10,6 +10,8 @@ import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.user.UserPrefs;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -72,6 +74,17 @@ public class VCHub extends JavaPlugin {
             }
         };
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, dayTask, 20, 20);
+
+        Runnable tokenTask = new Runnable() {
+            public void run() {
+                for (Player player : async_player_map.values()) {
+                    //update item name
+                    player.getInventory().setItem(5, VCItems.build(Material.EMERALD, "&6&lTotal Tokens: &f&l" + User.fromPlayer(player).getTokens(), "&5Buy more tokens today!", "&5Use &e\"/buy\" &5for more information"));
+                    player.updateInventory();
+                }
+            }
+        };
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, tokenTask, 0, 20*10);
     }
 
     public void onDisable() {
@@ -86,6 +99,13 @@ public class VCHub extends JavaPlugin {
                 continue;
 
             find.stop(player); // B-)
+        }
+
+        for (LivingEntity ent : Bukkit.getWorlds().get(0).getLivingEntities()) {
+            if (ent instanceof Player)
+                continue;
+
+            ent.remove();
         }
     }
 }
