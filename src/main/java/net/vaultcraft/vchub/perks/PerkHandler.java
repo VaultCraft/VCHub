@@ -20,6 +20,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -28,13 +29,14 @@ import java.util.List;
 
 public class PerkHandler implements Listener {
 
-    private HashMap<Perk, String> perks = new HashMap<>();
-    private HashMap<Integer, Perk> slots = new HashMap<>();
+    private LinkedHashMap<Perk, String> perks = new LinkedHashMap<>();
+    private LinkedHashMap<Integer, Perk> slots = new LinkedHashMap<>();
 
     public PerkHandler() {
         perks.put(new SilverfishPerk(), "Silverfish Hat");
         perks.put(new WolfPerk(), "Wolf Companion");
         perks.put(new SlimePerk(), "Slime Cannon");
+        perks.put(new EndermanPerk(), "Ender Force");
 
         Inventory inv = Bukkit.createInventory(null, (int)((double)perks.size()/9.0)+9, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);

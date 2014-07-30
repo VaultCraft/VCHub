@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class WolfPerk implements Perk {
 
-    private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 95, "&8&lWolf Companion", "&fHave a pet wolf by your side!", "&fGroup: " + Group.WOLF.getName());
+    private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 95, "&8&lWolf Companion", "&fHave a pet wolf by your side!");
     private static volatile ConcurrentHashMap<Player, Wolf> using = new ConcurrentHashMap<>();
 
     @Override
