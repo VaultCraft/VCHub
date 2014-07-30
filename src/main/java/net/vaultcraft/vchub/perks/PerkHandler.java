@@ -14,7 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
@@ -35,6 +34,7 @@ public class PerkHandler implements Listener {
     public PerkHandler() {
         perks.put(new SilverfishPerk(), "Silverfish Hat");
         perks.put(new WolfPerk(), "Wolf Companion");
+        perks.put(new SlimePerk(), "Slime Cannon");
 
         Inventory inv = Bukkit.createInventory(null, (int)((double)perks.size()/9.0)+9, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);
@@ -126,7 +126,6 @@ public class PerkHandler implements Listener {
                 currentPerk.start(click);
         }
         confirm.put(click, perk);
-        perk.start(click);
         click.getInventory().setItem(3, perk.getActivatorStack());
     }
 

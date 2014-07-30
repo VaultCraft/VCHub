@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by tacticalsk8er on 7/27/2014.
@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class WolfPerk implements Perk {
 
     private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 95, "&8&lWolf Companion", "&fHave a pet wolf by your side!", "&fGroup: " + Group.WOLF.getName());
-    private static volatile HashMap<Player, Wolf> using = new HashMap<>();
+    private static volatile ConcurrentHashMap<Player, Wolf> using = new ConcurrentHashMap<>();
 
     @Override
     public ItemStack getActivatorStack() {
