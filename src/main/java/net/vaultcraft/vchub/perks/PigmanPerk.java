@@ -9,9 +9,12 @@ import net.vaultcraft.vcutils.uncommon.FireworkEffectPlayer;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
@@ -58,7 +61,7 @@ public class PigmanPerk implements Perk, Listener {
                 cooldown.remove(player.getName());
             }
         }
-        Bukkit.getScheduler().runTask(VCHub.getInstance(), new FlamethrowerTask(player, 1, 200));
+        Bukkit.getScheduler().runTask(VCHub.getInstance(), new FlamethrowerTask(player, 1, 100));
     }
 
     @Override
@@ -110,8 +113,20 @@ public class PigmanPerk implements Perk, Listener {
                     fire.remove();
                     items.remove(fire);
                 }
-            }, 100l);
+            }, 50l);
             Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), this, delay);
+        }
+    }
+
+    @EventHandler
+    public void onChunkUnload(ChunkUnloadEvent e) {
+        for(Entity entity: e.getChunk().getEntities()) {
+            if(entity instanceof Item) {
+                if(items.contains(entity)) {
+                    entity.remove();
+                    items.remove(entity);
+                }
+            }
         }
     }
 }
