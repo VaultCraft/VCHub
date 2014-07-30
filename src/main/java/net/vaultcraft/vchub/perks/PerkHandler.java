@@ -35,6 +35,7 @@ public class PerkHandler implements Listener {
         perks.put(new SilverfishPerk(), "Silverfish Hat");
         perks.put(new WolfPerk(), "Wolf Companion");
         perks.put(new SlimePerk(), "Slime Cannon");
+        perks.put(new PigmanPerk(VCHub.getInstance()), "Flamethrower");
 
         Inventory inv = Bukkit.createInventory(null, (int)((double)perks.size()/9.0)+9, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);
