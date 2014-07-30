@@ -37,8 +37,8 @@ public class SlimePerk implements Perk {
     @Override
     public void start(Player player) {
         if(cantUse.containsKey(player.getName())) {
-            if (!(System.currentTimeMillis() - cantUse.get(player.getName()) >= 60000)) {
-                Form.at(player, String.format("You can use the Slime Cannon in %d second(s)", TimeUnit.MILLISECONDS.toSeconds(-(System.currentTimeMillis() - (cantUse.get(player.getName()) + 60000)))));
+            if (!(System.currentTimeMillis() - cantUse.get(player.getName()) >= 30000)) {
+                Form.at(player, String.format("You can use the Slime Cannon in %d second(s)", TimeUnit.MILLISECONDS.toSeconds(-(System.currentTimeMillis() - (cantUse.get(player.getName()) + 30000)))));
                 return;
             } else {
                 cantUse.remove(player.getName());
