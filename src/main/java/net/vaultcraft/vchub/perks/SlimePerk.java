@@ -3,6 +3,8 @@ package net.vaultcraft.vchub.perks;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
+import net.vaultcraft.vcutils.chat.Prefix;
+import net.vaultcraft.vcutils.logging.Logger;
 import net.vaultcraft.vcutils.uncommon.FireworkEffectPlayer;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
@@ -38,7 +40,7 @@ public class SlimePerk implements Perk {
     public void start(Player player) {
         if(cantUse.containsKey(player.getName())) {
             if (!(System.currentTimeMillis() - cantUse.get(player.getName()) >= 30000)) {
-                Form.at(player, String.format("You can use the Slime Cannon in %d second(s)", TimeUnit.MILLISECONDS.toSeconds(-(System.currentTimeMillis() - (cantUse.get(player.getName()) + 30000)))));
+                Form.at(player, Prefix.ERROR, String.format("You can use the Slime Cannon in %d second(s)", TimeUnit.MILLISECONDS.toSeconds(-(System.currentTimeMillis() - (cantUse.get(player.getName()) + 30000)))));
                 return;
             } else {
                 cantUse.remove(player.getName());
@@ -59,13 +61,13 @@ public class SlimePerk implements Perk {
                     try {
                         FireworkEffectPlayer.playFirework(at.getWorld(), at, FireworkEffect.builder().withColor(Color.LIME).withFade(Color.GREEN).with(FireworkEffect.Type.BURST).trail(true).build());
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Logger.error(VCHub.getInstance(), e);
                     }
                     slime.remove();
                     slimes.remove(slime);
                 }
             };
-            Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), delay, 10+(i*2));
+            Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), delay, 10 + (i * 2));
         }
         cantUse.put(player.getName(), System.currentTimeMillis());
     }

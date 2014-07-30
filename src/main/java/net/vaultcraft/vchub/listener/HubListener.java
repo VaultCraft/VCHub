@@ -121,7 +121,7 @@ public class HubListener implements Listener {
         if(event.getPlayer().getGameMode().equals(GameMode.CREATIVE))
             return;
         Player player = event.getPlayer();
-        player.playSound(player.getLocation(), Sound.IRONGOLEM_THROW, 3, -10);
+        player.playSound(player.getLocation(), Sound.IRONGOLEM_THROW, 5, -10);
         player.setVelocity(player.getLocation().getDirection().multiply(1).setY(1));
         Particles.FLAME.sendToLocation(player.getLocation(), 0.5f, 0, 0.5f, 0, 25);
         player.setAllowFlight(false);

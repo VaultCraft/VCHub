@@ -3,6 +3,7 @@ package net.vaultcraft.vchub.perks;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
+import net.vaultcraft.vcutils.uncommon.FireworkEffectPlayer;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.*;
@@ -45,7 +46,7 @@ public class EndermanPerk implements Perk {
         }
 
         final Block looking = player.getTargetBlock(null, 6);
-        if (looking == null) {
+        if (looking.getType().equals(Material.AIR)) {
             player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1, 0);
             return;
         }
@@ -97,13 +98,14 @@ public class EndermanPerk implements Perk {
     private static HashMap<FallingBlock, Player> threw = new HashMap<>();
 
     @EventHandler
-    public void onEntityChangeBlock(EntityChangeBlockEvent event) {
+    public void onEntityChangeBlock(EntityChangeBlockEvent event) throws Exception {
         if (threw.containsKey(event.getEntity())) {
             Player value = threw.remove(event.getEntity());
             Location strike = event.getBlock().getLocation();
 
             event.setCancelled(true);
 
+            FireworkEffectPlayer.playFirework(strike.getWorld(), strike, FireworkEffect.builder().withColor(Color.fromRGB(68, 0, 137)).with(FireworkEffect.Type.BALL_LARGE).withTrail().build());
         }
     }
     public boolean isUsing(Player player) {
