@@ -45,7 +45,7 @@ public class HubListener implements Listener {
         player.getInventory().setItem(2, VCItems.SPEED_BOOST);
         player.getInventory().setItem(3, VCItems.NO_ACTIVE_PERK);
         player.getInventory().setItem(4, VCItems.PICK_PERK);
-
+        player.getInventory().setItem(17, new ItemStack(Material.ARROW));
         ItemStack modify = VCItems.VAULT_COINS.clone();
         ItemMeta meta = modify.getItemMeta();
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lTotal Tokens: &f&l"+ User.fromPlayer(player).getTokens()));

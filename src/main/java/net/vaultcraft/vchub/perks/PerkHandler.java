@@ -38,8 +38,9 @@ public class PerkHandler implements Listener {
         perks.put(new SlimePerk(), "Slime Cannon");
         perks.put(new EndermanPerk(), "Ender Force");
         perks.put(new PigmanPerk(VCHub.getInstance()), "Flamethrower");
+        perks.put(new SkeletonPerk(VCHub.getInstance()), "Skeleton King Bow");
 
-        Inventory inv = Bukkit.createInventory(null, (int)((double)perks.size()/9.0)+9, PerkTitle.PERK_MENU.toString());
+        Inventory inv = Bukkit.createInventory(null, (int) ((double) perks.size() / 9.0) + 9, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);
 
         int slot = 0;
@@ -49,7 +50,7 @@ public class PerkHandler implements Listener {
             slot++;
         }
 
-        inv.setItem(inv.getSize()-1, VCItems.build(Material.REDSTONE_BLOCK, "&c&lDisable current perk"));
+        inv.setItem(inv.getSize() - 1, VCItems.build(Material.REDSTONE_BLOCK, "&c&lDisable current perk"));
 
         Bukkit.getPluginManager().registerEvents(this, VCHub.getInstance());
     }
@@ -76,13 +77,14 @@ public class PerkHandler implements Listener {
                     Form.at(player, Prefix.ERROR, "You cannot use this perk!");
                     return;
                 }
-                if(perk.isUsing(player))
+                if (perk.isUsing(player))
                     perk.stop(player);
                 else
                     perk.start(player);
-
-                player.setItemInHand(perk.getActivatorStack());
-                player.updateInventory();
+                if (perk.getActivatorStack().getType() != Material.BOW) {
+                    player.setItemInHand(perk.getActivatorStack());
+                    player.updateInventory();
+                }
             }
         }
     }
@@ -93,7 +95,7 @@ public class PerkHandler implements Listener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent event) {
-        Player click = (Player)event.getWhoClicked();
+        Player click = (Player) event.getWhoClicked();
         if (!(inv_open.contains(click)))
             return;
 
@@ -123,9 +125,9 @@ public class PerkHandler implements Listener {
         }
 
         click.closeInventory();
-        if(confirm.containsKey(click)) {
+        if (confirm.containsKey(click)) {
             Perk currentPerk = confirm.get(click);
-            if(currentPerk.isUsing(click))
+            if (currentPerk.isUsing(click))
                 currentPerk.start(click);
         }
         confirm.put(click, perk);
@@ -134,19 +136,23 @@ public class PerkHandler implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        if(confirm.containsKey(event.getPlayer())) {
+        if (confirm.containsKey(event.getPlayer())) {
             Perk perk = confirm.get(event.getPlayer());
-            if(perk.isUsing(event.getPlayer()))
+            if (perk.isUsing(event.getPlayer()))
                 perk.stop(event.getPlayer());
             confirm.remove(event.getPlayer());
         }
     }
 
     enum PerkTitle {
-        PERK_MENU(ChatColor.GREEN+"Perks menu!");
+        PERK_MENU(ChatColor.GREEN + "Perks menu!");
 
         String s;
-        PerkTitle(String s) { this.s = s; }
+
+        PerkTitle(String s) {
+            this.s = s;
+        }
+
         public String toString() {
             return s;
         }
