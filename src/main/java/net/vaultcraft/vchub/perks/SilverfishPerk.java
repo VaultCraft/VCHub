@@ -9,6 +9,7 @@ import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -52,6 +53,7 @@ public class SilverfishPerk implements Perk, Listener {
         player.setPassenger(mount);
         mount.setVelocity(new Vector(0, 0, 0));
         using.add(player);
+        player.getWorld().playSound(player.getLocation(), Sound.SILVERFISH_IDLE, 1, 1);
         Form.at(player, "You have a silverfish on your head :o");
     }
 

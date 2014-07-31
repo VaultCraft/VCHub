@@ -5,6 +5,7 @@ import net.vaultcraft.vcutils.chat.Form;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wolf;
@@ -47,6 +48,7 @@ public class WolfPerk implements Perk {
         wolf.setCustomName(player.getName() + "'s wolf");
         wolf.setCustomNameVisible(true);
         Form.at(player, "You have a new companion!");
+        player.playSound(player.getLocation(), Sound.WOLF_BARK, 1, 1);
         using.put(player, wolf);
     }
 
