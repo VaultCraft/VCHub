@@ -1,5 +1,6 @@
 package net.vaultcraft.vchub.perks;
 
+import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
@@ -11,20 +12,28 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Connor on 7/30/14. Designed for the VCHub project.
  */
 
-public class EndermanPerk implements Perk {
+public class EndermanPerk implements Perk, Listener {
 
     private static ItemStack activate = VCItems.build(Material.EYE_OF_ENDER, "&5&lEnder Force", "&fPickup and throw a block!");
     private static HashMap<String, Long> cantUse = new HashMap<>();
+    private static List<Player> using = Lists.newArrayList();
+
+    public EndermanPerk() {
+        Bukkit.getPluginManager().registerEvents(this, VCHub.getInstance());
+    }
 
     public ItemStack getActivatorStack() {
         return activate;
@@ -51,16 +60,13 @@ public class EndermanPerk implements Perk {
             return;
         }
 
+        using.add(player);
+
         final int id = looking.getTypeId();
         final byte data = looking.getData();
 
-        new ERun() {
-            public void run() {
-                player.sendBlockChange(looking.getLocation(), 0, (byte)0);
-                player.playEffect(looking.getLocation(), Effect.STEP_SOUND, id);
-                player.playSound(player.getLocation(), Sound.IRONGOLEM_HIT, 1, 2);
-            }
-        }.call(1);
+        player.playEffect(looking.getLocation(), Effect.STEP_SOUND, id);
+        player.playSound(player.getLocation(), Sound.IRONGOLEM_HIT, 1, 2);
 
         //make little fun task
         new ERun() {
@@ -73,12 +79,28 @@ public class EndermanPerk implements Perk {
                         //end
                         new ERun() {
                             public void run() {
-                                FallingBlock thrw = player.getWorld().spawnFallingBlock(player.getEyeLocation().clone().add(0, 1, 0), id, data);
+                                final FallingBlock thrw = player.getWorld().spawnFallingBlock(player.getEyeLocation().clone().add(0, 1, 0), id, data);
                                 thrw.setDropItem(false);
                                 thrw.setVelocity(player.getLocation().getDirection().multiply(1.3));
                                 threw.put(thrw, player);
 
                                 player.playSound(player.getLocation(), Sound.BAT_TAKEOFF, 1, 0.7f);
+                                using.remove(player);
+
+                                for (int i = 0; i < 35; i++) {
+                                    if (thrw.isDead())
+                                        return;
+
+                                    new ERun() {
+                                        public void run() {
+                                            try {
+                                                FireworkEffectPlayer.playFirework(thrw.getWorld(), thrw.getLocation(), random());
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }.call(i);
+                                }
                             }
                         }.call(i*10);
                     }
@@ -90,7 +112,7 @@ public class EndermanPerk implements Perk {
                     }.call(i*10);
                 }
             }
-        }.call(20*3);
+        }.call(20);
 
         cantUse.put(player.getName(), System.currentTimeMillis());
     }
@@ -98,18 +120,19 @@ public class EndermanPerk implements Perk {
     private static HashMap<FallingBlock, Player> threw = new HashMap<>();
 
     @EventHandler
-    public void onEntityChangeBlock(EntityChangeBlockEvent event) throws Exception {
+    public void onEntityChangeBlock(EntityChangeBlockEvent event) {
         if (threw.containsKey(event.getEntity())) {
-            Player value = threw.remove(event.getEntity());
-            Location strike = event.getBlock().getLocation();
-
             event.setCancelled(true);
-
-            FireworkEffectPlayer.playFirework(strike.getWorld(), strike, FireworkEffect.builder().withColor(Color.fromRGB(68, 0, 137)).with(FireworkEffect.Type.BALL_LARGE).withTrail().build());
         }
     }
+
+    private static FireworkEffect random() {
+        Color[] c = {Color.PURPLE, Color.FUCHSIA};
+        return FireworkEffect.builder().withColor(c[(int)(Math.random()*c.length)]).with(FireworkEffect.Type.BALL).withFlicker().build();
+    }
+
     public boolean isUsing(Player player) {
-        return false;
+        return using.contains(player);
     }
 
     public boolean canUse(Player player) {

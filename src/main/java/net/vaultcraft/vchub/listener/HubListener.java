@@ -23,6 +23,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -134,5 +135,11 @@ public class HubListener implements Listener {
         if(!player.getAllowFlight())
             if(player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR)
                 player.setAllowFlight(true);
+    }
+
+    @EventHandler
+    public void onWeatherToggle(WeatherChangeEvent event) {
+        if (!(event.getWorld().hasStorm()))
+            event.setCancelled(true);
     }
 }

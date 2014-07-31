@@ -50,7 +50,6 @@ public class PigmanPerk implements Perk, Listener {
     @Override
     public void start(Player player) {
         if(using.contains(player.getName())) {
-            Form.at(player, Prefix.ERROR, "You can currently using this perk!");
             return;
         }
         if(cooldown.containsKey(player.getName())) {
@@ -97,7 +96,7 @@ public class PigmanPerk implements Perk, Listener {
             times--;
             final Item fire = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.FIRE));
             fire.setPickupDelay(Integer.MAX_VALUE);
-            fire.setVelocity(player.getLocation().getDirection().multiply(1.2).add(new Vector((Math.random() * 0.1) - 0.05, (Math.random() * 0.1) - 0.05, (Math.random() * 0.1) - 0.05)));
+            fire.setVelocity(player.getLocation().getDirection().multiply(1.2).add(new Vector((Math.random() * 0.3) - 0.15, (Math.random() * 0.3) - 0.15, (Math.random() * 0.3) - 0.15)));
             items.add(fire);
             player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 1, -5);
             Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
@@ -105,7 +104,7 @@ public class PigmanPerk implements Perk, Listener {
                 public void run() {
                     if(Math.random() > 0.8) {
                         try {
-                            FireworkEffectPlayer.playFirework(fire.getWorld(), fire.getLocation(), FireworkEffect.builder().withColor(Color.RED).withFade(Color.ORANGE).with(FireworkEffect.Type.BURST).withFlicker().build());
+                            FireworkEffectPlayer.playFirework(fire.getWorld(), fire.getLocation(), random());
                         } catch (Exception e) {
                             Logger.error(VCHub.getInstance(), e);
                         }
@@ -116,6 +115,12 @@ public class PigmanPerk implements Perk, Listener {
             }, 50l);
             Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), this, delay);
         }
+    }
+
+    private static FireworkEffect random() {
+        Color[] c = {Color.ORANGE, Color.RED, Color.YELLOW};
+        FireworkEffect effect = FireworkEffect.builder().withColor(c[(int)(Math.random()*c.length)]).withFade(c[(int)(Math.random()*c.length)]).with(FireworkEffect.Type.BURST).withTrail().build();
+        return effect;
     }
 
     @EventHandler

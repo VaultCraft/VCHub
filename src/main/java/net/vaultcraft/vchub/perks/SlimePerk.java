@@ -46,6 +46,7 @@ public class SlimePerk implements Perk {
                 cantUse.remove(player.getName());
             }
         }
+        player.playSound(player.getLocation(), Sound.SLIME_ATTACK, 1, 1);
         final List<Slime> slimes = new ArrayList<>();
         float spread = 0.07f;
         for(int i = 0; i < 12; i++) {
