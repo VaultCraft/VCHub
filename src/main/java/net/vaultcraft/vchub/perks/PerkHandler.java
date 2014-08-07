@@ -39,6 +39,7 @@ public class PerkHandler implements Listener {
         perks.put(new EndermanPerk(), "Ender Force");
         perks.put(new PigmanPerk(VCHub.getInstance()), "Flamethrower");
         perks.put(new SkeletonPerk(VCHub.getInstance()), "Skeleton King Bow");
+        perks.put(new EnderdragonPerk(), "Ender Dragon");
 
         Inventory inv = Bukkit.createInventory(null, (int) ((double) perks.size() / 9.0) + 9, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);
@@ -128,7 +129,7 @@ public class PerkHandler implements Listener {
         if (confirm.containsKey(click)) {
             Perk currentPerk = confirm.get(click);
             if (currentPerk.isUsing(click))
-                currentPerk.start(click);
+                currentPerk.stop(click);
         }
         confirm.put(click, perk);
         click.getInventory().setItem(3, perk.getActivatorStack());
