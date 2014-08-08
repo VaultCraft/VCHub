@@ -38,6 +38,7 @@ public class PerkHandler implements Listener {
         perks.put(new SlimePerk(), "Slime Cannon");
         perks.put(new EndermanPerk(), "Ender Force");
         perks.put(new PigmanPerk(VCHub.getInstance()), "Flamethrower");
+        perks.put(new CreeperPerk(), "Party Creeper");
         perks.put(new SkeletonPerk(VCHub.getInstance()), "Skeleton King Bow");
         perks.put(new EnderdragonPerk(), "Ender Dragon");
 
