@@ -1,5 +1,6 @@
 package net.vaultcraft.vchub.listener;
 
+import net.citizensnpcs.api.CitizensAPI;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
@@ -107,7 +108,7 @@ public class HubListener implements Listener {
 
     @EventHandler
     public void onEntitySpawn(CreatureSpawnEvent event) {
-        if (!(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)))
+        if (!(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) || !(CitizensAPI.getNPCRegistry().isNPC(event.getEntity())))
             event.setCancelled(true);
     }
 
