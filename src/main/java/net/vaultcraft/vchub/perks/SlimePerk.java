@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * Created by tacticalsk8er on 7/28/2014.
  */
 public class SlimePerk implements Perk {
-    private static ItemStack active = VCItems.build(Material.SLIME_BALL, "&aSlime Cannon", "&fLaunch a barrage pf slimes at your target!");
+    private static ItemStack active = VCItems.build(Material.SLIME_BALL, "&a&lSlime Cannon", "&fLaunch a barrage pf slimes at your target!");
     private static HashMap<String, Long> cantUse = new HashMap<>();
 
     @Override

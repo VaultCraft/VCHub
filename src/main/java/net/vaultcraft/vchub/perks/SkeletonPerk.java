@@ -66,8 +66,8 @@ public class SkeletonPerk implements Perk, Listener {
         Player player = (Player) e.getEntity();
         if(!player.getItemInHand().getItemMeta().getDisplayName().equals(active.getItemMeta().getDisplayName()))
             return;
-        int arrows = (int) (e.getForce() / .1);
-        float spread = 0.1f;
+        int arrows = (int) (e.getForce() / .2);
+        float spread = .5f;
         e.getProjectile().remove();
         for(int i = 0; i < arrows; i++) {
             Vector vector = player.getEyeLocation().getDirection().multiply(1.5).add(new Vector((Math.random() * spread) - (spread / 2), (Math.random() * spread) - (spread / 2), (Math.random() * spread) - (spread / 2)));
@@ -112,6 +112,6 @@ public class SkeletonPerk implements Perk, Listener {
 
     private static FireworkEffect random() {
         Color[] c = {Color.WHITE, Color.BLACK, Color.GRAY};
-        return FireworkEffect.builder().withColor(c[(int)(Math.random()*c.length)]).withFade(c[(int)(Math.random()*c.length)]).with(FireworkEffect.Type.BALL_LARGE).withTrail().withFlicker().build();
+        return FireworkEffect.builder().withColor(c[(int)(Math.random()*c.length)]).withFade(c[(int)(Math.random()*c.length)]).with(FireworkEffect.Type.BALL_LARGE).withTrail().build();
     }
 }
