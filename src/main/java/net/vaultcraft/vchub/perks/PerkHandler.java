@@ -33,6 +33,7 @@ public class PerkHandler implements Listener {
     private LinkedHashMap<Integer, Perk> slots = new LinkedHashMap<>();
 
     public PerkHandler() {
+        perks.put(new DiscoSuitPerk(), "Disco Suit");
         perks.put(new SilverfishPerk(), "Silverfish Hat");
         perks.put(new WolfPerk(), "Wolf Companion");
         perks.put(new SlimePerk(), "Slime Cannon");
@@ -42,7 +43,7 @@ public class PerkHandler implements Listener {
         perks.put(new SkeletonPerk(VCHub.getInstance()), "Skeleton King Bow");
         perks.put(new EnderdragonPerk(), "Ender Dragon");
 
-        Inventory inv = Bukkit.createInventory(null, (int) ((double) perks.size() / 9.0) + 9, PerkTitle.PERK_MENU.toString());
+        Inventory inv = Bukkit.createInventory(null, 18, PerkTitle.PERK_MENU.toString());
         perksMenu = new Menu(inv);
 
         int slot = 0;

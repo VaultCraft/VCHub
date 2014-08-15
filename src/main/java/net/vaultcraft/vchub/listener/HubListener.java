@@ -100,15 +100,14 @@ public class HubListener implements Listener {
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event) {
-        if(!event.getPlayer().getGameMode().equals(GameMode.CREATIVE))
-            event.setCancelled(true);
+        event.setCancelled(true);
     }
 
     @EventHandler
     public void onEntitySpawn(CreatureSpawnEvent event) {
-        if (!(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)) || !(CitizensAPI.getNPCRegistry().isNPC(event.getEntity())))
+        if (!(event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM)))
             event.setCancelled(true);
     }
 
