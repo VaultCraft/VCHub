@@ -1,6 +1,5 @@
 package net.vaultcraft.vchub.listener;
 
-import net.citizensnpcs.api.CitizensAPI;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
