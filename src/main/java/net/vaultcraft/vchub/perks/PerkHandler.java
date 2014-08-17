@@ -5,7 +5,6 @@ import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vcutils.chat.Form;
 import net.vaultcraft.vcutils.chat.Prefix;
-import net.vaultcraft.vcutils.item.inventory.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -44,7 +43,7 @@ public class PerkHandler implements Listener {
         perks.put(new EnderdragonPerk(), "Ender Dragon");
 
         Inventory inv = Bukkit.createInventory(null, 18, PerkTitle.PERK_MENU.toString());
-        perksMenu = new Menu(inv);
+        perksMenu = inv;
 
         int slot = 0;
         for (Perk p : perks.keySet()) {
@@ -58,7 +57,7 @@ public class PerkHandler implements Listener {
         Bukkit.getPluginManager().registerEvents(this, VCHub.getInstance());
     }
 
-    private static Menu perksMenu;
+    private static Inventory perksMenu;
     private static List<Player> inv_open = Lists.newArrayList();
     private static HashMap<Player, Perk> confirm = new HashMap<>();
 
@@ -70,7 +69,7 @@ public class PerkHandler implements Listener {
 
         if (player.getItemInHand().equals(VCItems.PICK_PERK)) {
             //open perks menu
-            player.openInventory(perksMenu.getActual());
+            player.openInventory(perksMenu);
             inv_open.add(player);
         } else {
             if (confirm.containsKey(player) && player.getInventory().getHeldItemSlot() == 3) {

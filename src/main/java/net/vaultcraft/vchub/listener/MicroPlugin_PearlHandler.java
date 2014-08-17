@@ -54,6 +54,9 @@ public class MicroPlugin_PearlHandler implements Listener {
             active_pearls.add(proj);
             player.getInventory().remove(VCItems.PEARL_OF_TELEPORTATION);
             player.updateInventory();
+
+            if (player.getPassenger() != null)
+                player.getPassenger().remove();
         }
     }
 

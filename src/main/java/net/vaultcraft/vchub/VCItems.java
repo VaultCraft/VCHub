@@ -20,7 +20,7 @@ public class VCItems {
     public static final ItemStack NO_ACTIVE_PERK = build(Material.BUCKET, "&c&l&nNo active perk!", "&5Unlock perks by donating today!", "&5Use &e\"/buy\"&5 for more information.");
     public static final ItemStack PICK_PERK = build(Material.BEACON, "&b&lSelect Perk");
     public static final ItemStack VAULT_COINS = build(Material.EMERALD, "&6&lTotal tokens: &f{0}", "&5Buy more tokens today.", "Use &e\"/buy\"&5 for more information.");
-    public static final ItemStack PEARL_OF_TELEPORTATION = build(Material.ENDER_PEARL, "&5&nPearl of teleportation");
+    public static final ItemStack PEARL_OF_TELEPORTATION = build(Material.ENDER_PEARL, "&5&l&nPearl of teleportation");
     public static final ItemStack MAP_BY = build(Material.PAPER, "&5&lMap by: &7&n4thewar");
     public static final ItemStack USER_SETTINGS = build(Material.REDSTONE_TORCH_ON, "&c&lUser settings...");
 
