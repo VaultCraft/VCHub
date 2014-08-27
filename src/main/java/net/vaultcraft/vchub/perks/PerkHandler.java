@@ -33,13 +33,10 @@ public class PerkHandler implements Listener {
 
     public PerkHandler() {
         perks.put(new DiscoSuitPerk(), "Disco Suit");
-        perks.put(new SilverfishPerk(), "Silverfish Hat");
         perks.put(new WolfPerk(), "Wolf Companion");
         perks.put(new SlimePerk(), "Slime Cannon");
-        perks.put(new EndermanPerk(), "Ender Force");
-        perks.put(new PigmanPerk(VCHub.getInstance()), "Flamethrower");
-        perks.put(new CreeperPerk(), "Party Creeper");
         perks.put(new SkeletonPerk(VCHub.getInstance()), "Skeleton King Bow");
+        perks.put(new EndermanPerk(), "Ender Force");
         perks.put(new EnderdragonPerk(), "Ender Dragon");
 
         Inventory inv = Bukkit.createInventory(null, 18, PerkTitle.PERK_MENU.toString());
