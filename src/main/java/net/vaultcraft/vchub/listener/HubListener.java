@@ -9,17 +9,15 @@ import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -130,22 +128,24 @@ public class HubListener implements Listener {
         event.setCancelled(true);
     }
 
-    private List<Player> cannotUse = Lists.newArrayList();
+    private List<Entity> cannotUse = Lists.newArrayList();
 
     @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getAction().equals(Action.PHYSICAL)) {
-            if (cannotUse.contains(event.getPlayer()))
+    public void onEntityInteract(EntityInteractEvent event) {
+        if(!(event.getEntity() instanceof LivingEntity))
+            return;
+        if (event.getBlock().getType().equals(Material.GOLD_PLATE)) {
+            if (cannotUse.contains(event.getEntity()))
                 return;
 
-            final Player player = event.getPlayer();
-            Vector vec = player.getEyeLocation().getDirection().multiply(18.0).setY(3.0);
-            player.setVelocity(vec);
-            cannotUse.add(player);
+            final LivingEntity entity = (LivingEntity) event.getEntity();
+            Vector vec = entity.getEyeLocation().getDirection().multiply(18.0).setY(3.0);
+            entity.setVelocity(vec);
+            cannotUse.add(entity);
             Runnable remove = new Runnable() {
                 @Override
                 public void run() {
-                    cannotUse.remove(player);
+                    cannotUse.remove(entity);
                 }
             };
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
