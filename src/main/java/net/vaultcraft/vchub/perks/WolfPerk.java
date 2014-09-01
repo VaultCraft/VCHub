@@ -21,6 +21,10 @@ public class WolfPerk implements Perk {
     private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 95, "&8&lWolf Companion", "&fHave a pet wolf by your side!");
     private static volatile ConcurrentHashMap<Player, Wolf> using = new ConcurrentHashMap<>();
 
+    public Wolf getPlayersWolf(Player player) {
+        return using.get(player);
+    }
+
     @Override
     public ItemStack getActivatorStack() {
         return active;

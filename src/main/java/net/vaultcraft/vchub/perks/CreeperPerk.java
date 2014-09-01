@@ -26,7 +26,7 @@ import java.util.List;
 
 public class CreeperPerk implements Perk {
 
-    private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 50, "&bParty &2Creeper", "&fLaunch a Creeper that explodes into confetti!");
+    private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 50, "&b&lParty &2&lCreeper", "&fLaunch a Creeper that explodes into confetti!");
     private static List<String> using = new ArrayList<>();
 
     public ItemStack getActivatorStack() {
@@ -61,7 +61,6 @@ public class CreeperPerk implements Perk {
                 using.remove(player.getName());
             }
         }, 20 * 5l);
-
     }
 
     public boolean isUsing(Player player) {
@@ -82,6 +81,6 @@ public class CreeperPerk implements Perk {
     }
 
     public boolean canUse(Player player) {
-        return User.fromPlayer(player).getGroup().hasPermission(Group.CREEPER);
+        return User.fromPlayer(player).getGroup().hasPermission(Group.SKELETON);
     }
 }

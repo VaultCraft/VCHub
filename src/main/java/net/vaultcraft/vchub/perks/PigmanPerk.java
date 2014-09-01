@@ -70,7 +70,7 @@ public class PigmanPerk implements Perk, Listener {
 
     @Override
     public boolean canUse(Player player) {
-        return User.fromPlayer(player).getGroup().hasPermission(Group.PIGMAN);
+        return User.fromPlayer(player).getGroup().hasPermission(Group.SKELETON);
     }
 
     private class FlamethrowerTask implements Runnable{

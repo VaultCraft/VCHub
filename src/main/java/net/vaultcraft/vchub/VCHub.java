@@ -10,6 +10,7 @@ import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.user.UserPrefs;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -36,6 +37,9 @@ public class VCHub extends JavaPlugin {
 
     //perks
     private PerkHandler perkHandler;
+
+    //spawn
+    private Location spawn;
 
     private static VCHub instance;
 
@@ -85,6 +89,11 @@ public class VCHub extends JavaPlugin {
             }
         };
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, tokenTask, 0, 20*10);
+
+        if (getConfig().contains("spawn")) {
+            String[] split = getConfig().getString("spawn").split(",");
+            spawn = new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
+        }
     }
 
     public void onDisable() {
@@ -107,5 +116,9 @@ public class VCHub extends JavaPlugin {
 
             ent.remove();
         }
+    }
+
+    public Location getSpawn() {
+        return spawn;
     }
 }

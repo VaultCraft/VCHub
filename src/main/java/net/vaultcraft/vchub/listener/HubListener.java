@@ -1,20 +1,19 @@
 package net.vaultcraft.vchub.listener;
 
+import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.User;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -26,6 +25,9 @@ import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.Vector;
+
+import java.util.List;
 
 /**
  * Created by Connor on 7/23/14. Designed for the VCHub project.
@@ -126,6 +128,28 @@ public class HubListener implements Listener {
         Particles.FLAME.sendToLocation(player.getLocation(), 0.5f, 0, 0.5f, 0, 25);
         player.setAllowFlight(false);
         event.setCancelled(true);
+    }
+
+    private List<Player> cannotUse = Lists.newArrayList();
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (event.getAction().equals(Action.PHYSICAL)) {
+            if (cannotUse.contains(event.getPlayer()))
+                return;
+
+            final Player player = event.getPlayer();
+            Vector vec = player.getEyeLocation().getDirection().multiply(18.0).setY(3.0);
+            player.setVelocity(vec);
+            cannotUse.add(player);
+            Runnable remove = new Runnable() {
+                @Override
+                public void run() {
+                    cannotUse.remove(player);
+                }
+            };
+            Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
+        }
     }
 
     @EventHandler
