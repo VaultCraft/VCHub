@@ -34,8 +34,8 @@ public class PigmanPerk implements Perk, Listener {
     List<Item> items = new ArrayList<>();
     HashMap<String, Long> cooldown = new HashMap<>();
 
-    public PigmanPerk(Plugin plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    public PigmanPerk() {
+        Bukkit.getPluginManager().registerEvents(this, VCHub.getInstance());
     }
 
     @Override

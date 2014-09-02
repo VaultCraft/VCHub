@@ -35,6 +35,8 @@ public class PerkHandler implements Listener {
         perks.put(new DiscoSuitPerk(), "Disco Suit");
         perks.put(new WolfPerk(), "Wolf Companion");
         perks.put(new SlimePerk(), "Slime Cannon");
+        perks.put(new PigmanPerk(), "Flamethrower");
+        perks.put(new CreeperPerk(), "Party Creeper");
         perks.put(new SkeletonPerk(VCHub.getInstance()), "Skeleton King Bow");
         perks.put(new EndermanPerk(), "Ender Force");
         perks.put(new EnderdragonPerk(), "Ender Dragon");
@@ -80,10 +82,14 @@ public class PerkHandler implements Listener {
                     perk.stop(player);
                 else
                     perk.start(player);
+
                 if (perk.getActivatorStack().getType() != Material.BOW) {
                     player.setItemInHand(perk.getActivatorStack());
                     player.updateInventory();
                 }
+
+                if (perk instanceof DiscoSuitPerk)
+                    event.setCancelled(true);
             }
         }
     }

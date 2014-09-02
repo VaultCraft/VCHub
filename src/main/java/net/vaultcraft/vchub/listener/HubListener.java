@@ -5,7 +5,10 @@ import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
+import net.vaultcraft.vcutils.VCUtils;
+import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
 import net.vaultcraft.vcutils.uncommon.Particles;
+import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
@@ -15,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
@@ -58,6 +62,11 @@ public class HubListener implements Listener {
 
         //Double Jump
         player.setAllowFlight(true);
+
+        VCUtils.getGhostFactory().addPlayer(player);
+        VCUtils.getGhostFactory().setGhost(player, !User.fromPlayer(player).getGroup().hasPermission(Group.HELPER));
+
+        StatusBarAPI.setStatusBar(player, "", 0f);
     }
 
     @EventHandler
@@ -71,6 +80,8 @@ public class HubListener implements Listener {
             return;
 
         perk.stop(player);
+        VCUtils.getGhostFactory().setGhost(player, false);
+        VCUtils.getGhostFactory().removePlayer(player);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -131,15 +142,13 @@ public class HubListener implements Listener {
     private List<Entity> cannotUse = Lists.newArrayList();
 
     @EventHandler
-    public void onEntityInteract(EntityInteractEvent event) {
-        if(!(event.getEntity() instanceof LivingEntity))
-            return;
-        if (event.getBlock().getType().equals(Material.GOLD_PLATE)) {
-            if (cannotUse.contains(event.getEntity()))
+    public void onPlayerInteract(PlayerMoveEvent event) {
+        if (event.getTo().getBlock().getType().equals(Material.GOLD_PLATE)) {
+            if (cannotUse.contains(event.getPlayer()))
                 return;
 
-            final LivingEntity entity = (LivingEntity) event.getEntity();
-            Vector vec = entity.getEyeLocation().getDirection().multiply(18.0).setY(3.0);
+            final LivingEntity entity = event.getPlayer();
+            Vector vec = entity.getEyeLocation().getDirection().multiply(18.0).setY(2.0);
             entity.setVelocity(vec);
             cannotUse.add(entity);
             Runnable remove = new Runnable() {
@@ -149,6 +158,16 @@ public class HubListener implements Listener {
                 }
             };
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        if (event.getAction().equals(Action.PHYSICAL))
+            return;
+
+        if (event.getPlayer().getItemInHand().equals(VCItems.GAME_SELECTOR)) {
+            event.getPlayer().chat("/server");
         }
     }
 

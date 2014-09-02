@@ -48,14 +48,19 @@ public class CreeperPerk implements Perk {
         Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
             @Override
             public void run() {
+                final Location loc = creeper.getStoredLocation();
+
                 Particles.EXPLODE.sendToLocation(creeper.getEntity().getLocation(), 1F, 1F, 1F, 1, 10);
                 Particles.RED_DUST.sendToLocation(creeper.getEntity().getLocation(), 1F, 1F, 1F, 1, 100);
                 Particles.NOTE.sendToLocation(creeper.getEntity().getLocation(), 1.5F, 1.5F, 1.5F, 1, 90);
-                try {
-                    FireworkEffectPlayer.playFirework(creeper.getEntity().getWorld(), creeper.getEntity().getLocation().clone()
-                            .add((Math.random() * 2.5) - 1.25, Math.random() * 2, (Math.random() * 2.5) - 1.25), random());
-                } catch (Exception e) {
-                    e.printStackTrace();
+                for (int i = 0; i < (int)(Math.random()*10)+15; i++) {
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), new Runnable() {
+                        @Override
+                        public void run() {
+                            Location ranged = loc.clone().add((Math.random()*10)-5, Math.random()*10, (Math.random()*10)-5);
+                            FireworkEffectPlayer.playFirework(loc.getWorld(), ranged, random());
+                        }
+                    }, (int)(Math.random()*20));
                 }
                 creeper.destroy();
                 using.remove(player.getName());
@@ -71,7 +76,7 @@ public class CreeperPerk implements Perk {
         Color c1 = Color.fromRGB((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
         Color c2 = Color.fromRGB((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 
-        FireworkEffect.Builder b = FireworkEffect.builder().withColor(c1).withFade(c2).with(FireworkEffect.Type.values()[(int)(Math.random()*FireworkEffect.Type.values().length)]);
+        FireworkEffect.Builder b = FireworkEffect.builder().withColor(c1).withFade(c2).with(FireworkEffect.Type.CREEPER);
         if (Math.random() > .5)
             b = b.withFlicker();
         if (Math.random() > .5)

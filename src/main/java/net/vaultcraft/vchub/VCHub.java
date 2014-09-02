@@ -7,6 +7,7 @@ import net.vaultcraft.vchub.listener.MicroPlugin_PrefsHandler;
 import net.vaultcraft.vchub.listener.MicroPlugin_SpeedHandler;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
+import net.vaultcraft.vchub.task.StatusBarTask;
 import net.vaultcraft.vchub.user.UserPrefs;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
@@ -94,6 +95,8 @@ public class VCHub extends JavaPlugin {
             String[] split = getConfig().getString("spawn").split(",");
             spawn = new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
         }
+
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new StatusBarTask(), 1, 1);
     }
 
     public void onDisable() {
