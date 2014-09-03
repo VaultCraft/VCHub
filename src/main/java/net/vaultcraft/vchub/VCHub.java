@@ -8,6 +8,7 @@ import net.vaultcraft.vchub.listener.MicroPlugin_SpeedHandler;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.StatusBarTask;
+import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vchub.user.UserPrefs;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
@@ -97,6 +98,7 @@ public class VCHub extends JavaPlugin {
         }
 
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new StatusBarTask(), 1, 1);
+        VCScoreboardManager.init();
     }
 
     public void onDisable() {

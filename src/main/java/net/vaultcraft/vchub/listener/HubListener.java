@@ -5,8 +5,10 @@ import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
+import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vcutils.VCUtils;
 import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
+import net.vaultcraft.vcutils.scoreboard.VCScoreboard;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
@@ -67,6 +69,7 @@ public class HubListener implements Listener {
         VCUtils.getGhostFactory().setGhost(player, !User.fromPlayer(player).getGroup().hasPermission(Group.HELPER));
 
         StatusBarAPI.setStatusBar(player, "", 0f);
+        VCScoreboardManager.addPlayer(player);
     }
 
     @EventHandler
@@ -82,6 +85,8 @@ public class HubListener implements Listener {
         perk.stop(player);
         VCUtils.getGhostFactory().setGhost(player, false);
         VCUtils.getGhostFactory().removePlayer(player);
+
+        VCScoreboardManager.removePlayer(player);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
