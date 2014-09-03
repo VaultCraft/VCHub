@@ -15,7 +15,7 @@ public class VCScoreboardController {
     public VCScoreboardController(Player player, VCObjective current) {
         board = new VCScoreboard(player);
         this.current = current;
-        current.addScoreboard(board);
+        current.addScoreboardAndDisplay(board, VCDisplay.SIDEBAR);
     }
 
     public void update(VCObjective objective) {
