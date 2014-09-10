@@ -1,5 +1,6 @@
 package net.vaultcraft.vchub.task.scoreboard;
 
+import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vcutils.scoreboard.VCDisplay;
 import net.vaultcraft.vcutils.scoreboard.VCObjective;
@@ -10,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Connor on 9/2/14. Designed for the VCHub project.
@@ -22,29 +24,27 @@ public class VCScoreboardManager {
     public static void init() {
         Runnable ticker = new Runnable() {
             public void run() {
+                List<Player> remove = Lists.newArrayList();
                 for (Player key : boards.keySet()) {
+                    if (!(key.isOnline()))
+                        remove.add(key);
                     VCScoreboardController value = boards.get(key);
-                    value.getCurrentObjective().tick();
+                    value.run();
                 }
+
+                for (Player player : remove)
+                    boards.remove(player);
             }
         };
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(VCHub.getInstance(), ticker, 2, 2);
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(VCHub.getInstance(), ticker, 5, 5);
     }
 
     public static void addPlayer(Player player) {
-        boards.put(player, new VCScoreboardController(player, makeMain(player)));
+        boards.put(player, new VCScoreboardController(player));
     }
 
     public static void removePlayer(Player player) {
         if (boards.containsKey(player))
             boards.remove(player);
-    }
-
-    private static VCObjective makeMain(Player player) {
-        VCObjective objective = new VCObjective(new VCTicker(ChatColor.BOLD, "Welcome "+player.getName()+" to VaultCraft", 13));
-        VCScore s15 = new VCScore(ChatColor.DARK_PURPLE.toString()+ChatColor.BOLD.toString()+"Tokens", 15, objective);
-        VCScore s14 = new VCScore(ChatColor.BOLD+"17 (eg)", 14, objective);
-        objective.display(VCDisplay.SIDEBAR);
-        return objective;
     }
 }

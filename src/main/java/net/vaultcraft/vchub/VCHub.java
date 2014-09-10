@@ -1,5 +1,6 @@
 package net.vaultcraft.vchub;
 
+import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.handler.PlayerVisibilityHandler;
 import net.vaultcraft.vchub.listener.HubListener;
 import net.vaultcraft.vchub.listener.MicroPlugin_PearlHandler;
@@ -10,6 +11,7 @@ import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.StatusBarTask;
 import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vchub.user.UserPrefs;
+import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -125,5 +128,14 @@ public class VCHub extends JavaPlugin {
 
     public Location getSpawn() {
         return spawn;
+    }
+
+    public static List<Player> getStaff() {
+        List<Player> staff = Lists.newArrayList();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (User.fromPlayer(player).getGroup().hasPermission(Group.HELPER))
+                staff.add(player);
+        }
+        return staff;
     }
 }

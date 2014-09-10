@@ -82,4 +82,8 @@ public class SlimePerk implements Perk {
     public boolean canUse(Player player) {
         return User.fromPlayer(player).getGroup().hasPermission(Group.SLIME);
     }
+
+    public String getName() {
+        return "Slime Cannon";
+    }
 }

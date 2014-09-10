@@ -72,7 +72,7 @@ public class HubListener implements Listener {
         VCScoreboardManager.addPlayer(player);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 

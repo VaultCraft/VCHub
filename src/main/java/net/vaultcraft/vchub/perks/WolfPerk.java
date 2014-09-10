@@ -65,4 +65,8 @@ public class WolfPerk implements Perk {
     public boolean canUse(Player player) {
         return User.fromPlayer(player).getGroup().hasPermission(Group.WOLF);
     }
+
+    public String getName() {
+        return "Wolf Companion";
+    }
 }

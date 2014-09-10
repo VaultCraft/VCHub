@@ -90,4 +90,8 @@ public class EnderdragonPerk implements Perk, Listener {
             using.remove(player.getName());
         }
     }
+
+    public String getName() {
+        return "Ender Mount";
+    }
 }

@@ -134,4 +134,8 @@ public class PigmanPerk implements Perk, Listener {
             }
         }
     }
+
+    public String getName() {
+        return "Flamethrower";
+    }
 }

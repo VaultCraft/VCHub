@@ -144,4 +144,8 @@ public class EndermanPerk implements Perk, Listener {
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), this, time);
         }
     }
+
+    public String getName() {
+        return "Ender Force";
+    }
 }

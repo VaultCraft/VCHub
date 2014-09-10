@@ -114,4 +114,8 @@ public class SkeletonPerk implements Perk, Listener {
         Color[] c = {Color.WHITE, Color.BLACK, Color.GRAY};
         return FireworkEffect.builder().withColor(c[(int)(Math.random()*c.length)]).withFade(c[(int)(Math.random()*c.length)]).with(FireworkEffect.Type.BALL_LARGE).withTrail().build();
     }
+
+    public String getName() {
+        return "King Bow";
+    }
 }

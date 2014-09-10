@@ -88,4 +88,8 @@ public class CreeperPerk implements Perk {
     public boolean canUse(Player player) {
         return User.fromPlayer(player).getGroup().hasPermission(Group.SKELETON);
     }
+
+    public String getName() {
+        return "Party Creeper";
+    }
 }

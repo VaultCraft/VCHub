@@ -17,4 +17,6 @@ public interface Perk {
     public boolean isUsing(Player player);
 
     public boolean canUse(Player player);
+
+    public String getName();
 }

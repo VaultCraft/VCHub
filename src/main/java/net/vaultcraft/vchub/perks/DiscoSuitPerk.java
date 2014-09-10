@@ -113,4 +113,8 @@ public class DiscoSuitPerk implements Perk {
         content.setItemMeta(meta);
         return content;
     }
+
+    public String getName() {
+        return "Disco Suit";
+    }
 }
