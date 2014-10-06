@@ -25,7 +25,7 @@ public class VCScoreboardController implements Runnable {
         board = new VCScoreboard(player);
         this.player = player;
 
-        header = new VCTicker(ChatColor.BOLD, "Welcome "+player.getName()+" to VaultCraft!         ", 14);
+        header = new VCTicker(ChatColor.BOLD, "Welcome "+player.getName()+" to VaultCraft!               ", 14);
 
         text.put(15, "----------------");
         text.put(14, "&5&lTokens");
@@ -65,9 +65,11 @@ public class VCScoreboardController implements Runnable {
 
         current.setName(header.tick());
 
-        staff.updateTicker(format(VCHub.getStaff())+"               ");
-        current.getFirstScore(1).setName(website.tick());
-        current.getFirstScore(10).setName(staff.tick());
+        try {
+            staff.updateTicker(format(VCHub.getStaff())+"               ");
+            current.getFirstScore(1).setName(website.tick());
+            current.getFirstScore(10).setName(staff.tick());
+        } catch (IndexOutOfBoundsException ex) { }
 
         for (int x : text.keySet()) {
             VCScore score = current.getFirstScore(x);

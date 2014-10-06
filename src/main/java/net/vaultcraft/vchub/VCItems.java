@@ -15,7 +15,7 @@ import java.util.List;
 public class VCItems {
 
     public static final ItemStack GAME_SELECTOR = build(Material.COMPASS, "&d&lGame selector");
-    public static final ItemStack HUB_SELECTOR = build(Material.WATCH, "&e&lLobby selector");
+    public static final ItemStack STORE = build(Material.DIAMOND, "&b&lServer Store");
     public static final ItemStack SPEED_BOOST = build(Material.POTION, (byte)8226, "&a&lSpeed Boost");
     public static final ItemStack NO_ACTIVE_PERK = build(Material.BUCKET, "&c&l&nNo active perk!", "&5Unlock perks by donating today!", "&5Use &e\"/buy\"&5 for more information.");
     public static final ItemStack PICK_PERK = build(Material.BEACON, "&b&lSelect Perk");

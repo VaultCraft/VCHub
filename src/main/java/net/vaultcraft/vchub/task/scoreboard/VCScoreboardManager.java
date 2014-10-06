@@ -6,6 +6,7 @@ import net.vaultcraft.vcutils.scoreboard.VCDisplay;
 import net.vaultcraft.vcutils.scoreboard.VCObjective;
 import net.vaultcraft.vcutils.scoreboard.VCScore;
 import net.vaultcraft.vcutils.scoreboard.VCTicker;
+import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -26,17 +27,19 @@ public class VCScoreboardManager {
             public void run() {
                 List<Player> remove = Lists.newArrayList();
                 for (Player key : boards.keySet()) {
-                    if (!(key.isOnline()))
+                    if (!(key.isOnline()) || User.fromPlayer(key) == null)
                         remove.add(key);
-                    VCScoreboardController value = boards.get(key);
-                    value.run();
+                    else {
+                        VCScoreboardController value = boards.get(key);
+                        value.run();
+                    }
                 }
 
                 for (Player player : remove)
                     boards.remove(player);
             }
         };
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(VCHub.getInstance(), ticker, 5, 5);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(VCHub.getInstance(), ticker, 3, 3);
     }
 
     public static void addPlayer(Player player) {

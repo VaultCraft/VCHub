@@ -87,6 +87,16 @@ public class MicroPlugin_PearlHandler implements Listener {
             player.getInventory().remove(VCItems.PEARL_OF_TELEPORTATION);
             player.updateInventory();
 
+            Runnable check = new Runnable() {
+                public void run() {
+                    if (proj.isDead())
+                        return;
+
+                    onProjectileHit(new ProjectileHitEvent(proj));
+                }
+            };
+            Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), check, 20*10);
+
             if (player.getPassenger() != null)
                 player.getPassenger().remove();
         }

@@ -14,6 +14,7 @@ import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -43,11 +44,13 @@ public class HubListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        player.teleport(VCHub.getInstance().getSpawn());
+
         VCHub.async_player_map.put(player.getUniqueId(), player);
         player.getInventory().clear();
 
         player.getInventory().setItem(0, VCItems.GAME_SELECTOR);
-        player.getInventory().setItem(1, VCItems.HUB_SELECTOR);
+        player.getInventory().setItem(1, VCItems.STORE);
         player.getInventory().setItem(2, VCItems.SPEED_BOOST);
         player.getInventory().setItem(3, VCItems.NO_ACTIVE_PERK);
         player.getInventory().setItem(4, VCItems.PICK_PERK);
@@ -97,6 +100,10 @@ public class HubListener implements Listener {
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent event) {
         event.setCancelled(true);
+
+        if (event.getCause().equals(EntityDamageEvent.DamageCause.VOID)) {
+            event.getEntity().teleport(VCHub.getInstance().getSpawn());
+        }
     }
 
     @EventHandler
@@ -153,7 +160,7 @@ public class HubListener implements Listener {
                 return;
 
             final LivingEntity entity = event.getPlayer();
-            Vector vec = entity.getEyeLocation().getDirection().multiply(18.0).setY(2.0);
+            Vector vec = entity.getEyeLocation().getDirection().multiply(15.0).setY(1.0);
             entity.setVelocity(vec);
             cannotUse.add(entity);
             Runnable remove = new Runnable() {
@@ -173,6 +180,10 @@ public class HubListener implements Listener {
 
         if (event.getPlayer().getItemInHand().equals(VCItems.GAME_SELECTOR)) {
             event.getPlayer().chat("/server");
+        }
+
+        if (event.getPlayer().getItemInHand().equals(VCItems.STORE)) {
+            event.getPlayer().chat("/buy");
         }
     }
 

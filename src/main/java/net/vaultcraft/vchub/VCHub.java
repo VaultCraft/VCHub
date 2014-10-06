@@ -71,13 +71,17 @@ public class VCHub extends JavaPlugin {
         Runnable dayTask = new Runnable() {
             public void run() {
                 for (Player player : async_player_map.values()) {
-                    User user = User.fromPlayer(player);
-                    if (user.getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber()+"") == null)
-                        player.setPlayerTime(6000, false);
-                    else if (User.fromPlayer(player).getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber()+"").toLowerCase().equals("true")) {
-                        player.setPlayerTime(6000, false);
-                    } else {
-                        player.setPlayerTime(18000, false);
+                    try {
+                        User user = User.fromPlayer(player);
+                        if (user.getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber()+"") == null)
+                            player.setPlayerTime(6000, false);
+                        else if (User.fromPlayer(player).getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber()+"").toLowerCase().equals("true")) {
+                            player.setPlayerTime(6000, false);
+                        } else {
+                            player.setPlayerTime(18000, false);
+                        }
+                    } catch (NullPointerException ex) {
+                        async_player_map.remove(player);
                     }
                 }
             }
@@ -88,12 +92,18 @@ public class VCHub extends JavaPlugin {
             public void run() {
                 for (Player player : async_player_map.values()) {
                     //update item name
-                    player.getInventory().setItem(5, VCItems.build(Material.EMERALD, "&6&lTotal Tokens: &f&l" + User.fromPlayer(player).getTokens(), "&5Buy more tokens today!", "&5Use &e\"/buy\" &5for more information"));
-                    player.updateInventory();
+                    try {
+                        player.getInventory().setItem(5, VCItems.build(Material.EMERALD, "&6&lTotal Tokens: &f&l" + User.fromPlayer(player).getTokens(), "&5Buy more tokens today!", "&5Use &e\"/buy\" &5for more information"));
+                        player.updateInventory();
+                    } catch (NullPointerException ex) {
+                        async_player_map.remove(player);
+                    }
                 }
             }
         };
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, tokenTask, 0, 20*10);
+
+        saveDefaultConfig();
 
         if (getConfig().contains("spawn")) {
             String[] split = getConfig().getString("spawn").split(",");
@@ -124,6 +134,8 @@ public class VCHub extends JavaPlugin {
 
             ent.remove();
         }
+
+        saveDefaultConfig();
     }
 
     public Location getSpawn() {
