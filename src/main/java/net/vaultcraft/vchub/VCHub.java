@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class VCHub extends JavaPlugin {
-
+    //hash map
     public static volatile ConcurrentHashMap<UUID, Player> async_player_map = new ConcurrentHashMap<>();
 
     private MicroPlugin_PearlHandler prlh = new MicroPlugin_PearlHandler();
