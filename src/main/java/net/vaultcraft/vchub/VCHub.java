@@ -73,9 +73,9 @@ public class VCHub extends JavaPlugin {
                 for (Player player : async_player_map.values()) {
                     try {
                         User user = User.fromPlayer(player);
-                        if (user.getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber()+"") == null)
+                        if (user.getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber() + "") == null)
                             player.setPlayerTime(6000, false);
-                        else if (User.fromPlayer(player).getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber()+"").toLowerCase().equals("true")) {
+                        else if (User.fromPlayer(player).getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber() + "").toLowerCase().equals("true")) {
                             player.setPlayerTime(6000, false);
                         } else {
                             player.setPlayerTime(18000, false);
@@ -101,7 +101,7 @@ public class VCHub extends JavaPlugin {
                 }
             }
         };
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, tokenTask, 0, 20*10);
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, tokenTask, 0, 20 * 10);
 
         saveDefaultConfig();
 
@@ -145,8 +145,9 @@ public class VCHub extends JavaPlugin {
     public static List<Player> getStaff() {
         List<Player> staff = Lists.newArrayList();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (User.fromPlayer(player).getGroup().hasPermission(Group.HELPER))
-                staff.add(player);
+            if (User.fromPlayer(player) != null)
+                if (User.fromPlayer(player).getGroup().hasPermission(Group.HELPER))
+                    staff.add(player);
         }
         return staff;
     }
