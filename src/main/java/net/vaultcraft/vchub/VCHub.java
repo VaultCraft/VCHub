@@ -145,7 +145,7 @@ public class VCHub extends JavaPlugin {
     public static List<Player> getStaff() {
         List<Player> staff = Lists.newArrayList();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (User.fromPlayer(player) != null)
+            if (User.fromPlayer(player) != null && User.fromPlayer(player).getGroup() != null)
                 if (User.fromPlayer(player).getGroup().hasPermission(Group.HELPER))
                     staff.add(player);
         }
