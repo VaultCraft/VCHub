@@ -8,13 +8,12 @@ import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vcutils.VCUtils;
 import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
-import net.vaultcraft.vcutils.scoreboard.VCScoreboard;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
+import net.vaultcraft.vcutils.user.UserLoadedEvent;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -24,7 +23,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -68,11 +70,15 @@ public class HubListener implements Listener {
         //Double Jump
         player.setAllowFlight(true);
 
-        VCUtils.getGhostFactory().addPlayer(player);
-        VCUtils.getGhostFactory().setGhost(player, !User.fromPlayer(player).getGroup().hasPermission(Group.HELPER));
-
         StatusBarAPI.setStatusBar(player, "", 0f);
         VCScoreboardManager.addPlayer(player);
+    }
+
+    @EventHandler
+    public void onUserLoad(UserLoadedEvent e) {
+        Player player = e.getUser().getPlayer();
+        VCUtils.getGhostFactory().addPlayer(player);
+        VCUtils.getGhostFactory().setGhost(player, !User.fromPlayer(player).getGroup().hasPermission(Group.HELPER));
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
