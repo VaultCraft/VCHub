@@ -55,6 +55,13 @@
         </license>
     </licenses>
 
+    <repositories>
+        <repository>
+            <id>citizens-snapshots</id>
+            <url>http://repo.citizensnpcs.co</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>

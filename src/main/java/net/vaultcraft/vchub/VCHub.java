@@ -1,6 +1,7 @@
 package net.vaultcraft.vchub;
 
 import com.google.common.collect.Lists;
+import net.vaultcraft.vchub.commands.VCHelp;
 import net.vaultcraft.vchub.handler.PlayerVisibilityHandler;
 import net.vaultcraft.vchub.listener.HubListener;
 import net.vaultcraft.vchub.listener.MicroPlugin_PearlHandler;
@@ -11,6 +12,7 @@ import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.StatusBarTask;
 import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vchub.user.UserPrefs;
+import net.vaultcraft.vcutils.command.CommandManager;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
@@ -19,6 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -52,6 +55,9 @@ public class VCHub extends JavaPlugin {
         return instance;
     }
 
+    //gui
+    public static Inventory help = Bukkit.createInventory(null, 45, "VaultCraft Hub Help Menu");
+
     public void onEnable() {
         instance = this;
 
@@ -64,6 +70,9 @@ public class VCHub extends JavaPlugin {
         preh.onEnable();
         prlh.onEnable();
         spdh.onEnable();
+
+        CommandManager.addCommand(new VCHelp("help", Group.COMMON));
+        CommandManager.addCommand(new VCHelp("rules", Group.COMMON));
 
         pvh = new PlayerVisibilityHandler();
         perkHandler = new PerkHandler();

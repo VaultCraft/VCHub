@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public class EnderdragonPerk implements Perk, Listener {
 
-    private static ItemStack active = VCItems.build(Material.DRAGON_EGG, (byte) 0, "&5&lEnderdragon Mount", "&fRide around on an enderdragon!", "&fSecondary ability to shoot fire! (To activate, drop this item)");
+    private static ItemStack active = VCItems.build(Material.DRAGON_EGG, (byte) 0, "&5&lEnder Dragon Mount", "&fRide around on an ender dragon!", "&fSecondary ability to shoot fire! (To activate, drop this item)");
     private static HashMap<String, NPC> using = new HashMap<>();
     private static HashMap<String, BukkitTask> tasks = new HashMap<>();
 
