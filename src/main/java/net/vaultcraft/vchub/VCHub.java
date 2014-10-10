@@ -2,6 +2,7 @@ package net.vaultcraft.vchub;
 
 import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.commands.VCHelp;
+import net.vaultcraft.vchub.commands.VCRules;
 import net.vaultcraft.vchub.handler.PlayerVisibilityHandler;
 import net.vaultcraft.vchub.listener.HubListener;
 import net.vaultcraft.vchub.listener.MicroPlugin_PearlHandler;
@@ -72,7 +73,7 @@ public class VCHub extends JavaPlugin {
         spdh.onEnable();
 
         CommandManager.addCommand(new VCHelp("help", Group.COMMON));
-        CommandManager.addCommand(new VCHelp("rules", Group.COMMON));
+        CommandManager.addCommand(new VCRules("rules", Group.COMMON));
 
         pvh = new PlayerVisibilityHandler();
         perkHandler = new PerkHandler();
