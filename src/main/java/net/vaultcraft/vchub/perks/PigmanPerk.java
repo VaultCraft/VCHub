@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class PigmanPerk implements Perk, Listener {
 
-    ItemStack active = VCItems.build(Material.BLAZE_ROD, "&4&lFlamethrower", "&fThrow fire at your enemies");
+    ItemStack active = VCItems.build(Material.BLAZE_ROD, "&4&lFlamethrower", "&fThrow fire at your enemies!");
     List<String> using = new ArrayList<>();
     List<Item> items = new ArrayList<>();
     HashMap<String, Long> cooldown = new HashMap<>();
