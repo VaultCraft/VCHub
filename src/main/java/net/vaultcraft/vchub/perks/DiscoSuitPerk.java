@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class DiscoSuitPerk implements Perk {
 
-    private static ItemStack active = VCItems.build(Material.LEATHER_CHESTPLATE, "&f&lDisco &7&lSuit", "&fEven you can be the highlight of the evening!");
+    private static ItemStack active = VCItems.build(Material.LEATHER_CHESTPLATE, "&f&lDisco &7&lSuit", "&fEven you can be the", "&fhighlight of the evening!");
     private static Map<Player, DiscoTask> using = new HashMap<>();
 
     public ItemStack getActivatorStack() {
