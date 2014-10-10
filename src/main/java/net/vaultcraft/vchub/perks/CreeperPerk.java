@@ -26,7 +26,7 @@ import java.util.List;
 
 public class CreeperPerk implements Perk {
 
-    private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 50, "&b&lParty &2&lCreeper", "&fLaunch a Creeper that explodes into confetti!");
+    private static ItemStack active = VCItems.build(Material.MONSTER_EGG, (byte) 50, "&b&lParty &2&lCreeper", "&fLaunch a Creeper that", "&fexplodes into confetti!");
     private static List<String> using = new ArrayList<>();
 
     public ItemStack getActivatorStack() {
