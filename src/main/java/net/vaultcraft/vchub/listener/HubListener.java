@@ -48,6 +48,10 @@ public class HubListener implements Listener {
 
         player.teleport(VCHub.getInstance().getSpawn());
 
+        if(!player.getGameMode().equals(GameMode.SURVIVAL)) {
+            player.setGameMode(GameMode.SURVIVAL);
+        }
+
         VCHub.async_player_map.put(player.getUniqueId(), player);
         player.getInventory().clear();
 
