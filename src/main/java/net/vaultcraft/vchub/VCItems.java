@@ -28,9 +28,9 @@ public class VCItems {
 
     //hub help menu items
 
-    public static final ItemStack WELCOME = build(Material.WATCH, "&dWelcome to the &5&lVaultCraft", "Help Menu&d. Hover over the", "items to read the tips!");
-    public static final ItemStack WEBSITE = build(Material.MAP, "&dWebsite: https://vaultcraft.net");
-    public static final ItemStack SHOP = build(Material.MAP, "&dStore: http://store.vaultcraft.net");
+    public static final ItemStack WELCOME = build(Material.WATCH, "&dWelcome to the &5&lVaultCraft", "&5&lHelp Menu&d. Hover over the", "&ditems to read the tips!");
+    public static final ItemStack WEBSITE = build(Material.MAP, "&dWebsite: &d&nhttps://vaultcraft.net");
+    public static final ItemStack SHOP = build(Material.MAP, "&dStore: &d&nhttp://store.vaultcraft.net");
     public static final ItemStack GAME_SELECTOR_TUTORIAL = build(Material.COMPASS, "&d&lGame Selector", "&dThis is the &d&lGame Selector&d.", "&dIt is used to teleport you", "&dto our different servers!");
     public static final ItemStack STORE_TUTORIAL = build(Material.DIAMOND, "&b&lServer Store", "&dThis is the &b&lServer Store&d. It", "&dopens our shop menu where you", "&dcan buy our various products!");
     public static final ItemStack SPEED_BOOST_TUTORIAL = build(Material.POTION, (byte)8226, "&a&lSpeed Boost", "&dThis is the &a&lSpeed Boost&d. It", "&dmakes you run faster around", "&dthe hub!");
