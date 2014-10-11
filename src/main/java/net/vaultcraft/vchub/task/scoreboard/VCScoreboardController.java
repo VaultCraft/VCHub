@@ -22,9 +22,6 @@ public class VCScoreboardController implements Runnable {
     public VCScoreboardController(Player player) {
         board = new VCScoreboard(player);
         this.player = player;
-
-        header = new VCTicker(ChatColor.BOLD, "Welcome "+player.getName()+" to VaultCraft!           ", 14);
-
         text.put(12, "&7&m----------------");
         text.put(11, "&5&lTokens");
         text.put(10, "&7{tokens}");
@@ -44,7 +41,7 @@ public class VCScoreboardController implements Runnable {
 
     public void run() {
         if (current == null) {
-            current = new VCObjective(header.tick());
+            current = new VCObjective("&5&lVault&oCraft");
 
             for (int x : text.keySet()) {
                 String txt = text.get(x);
