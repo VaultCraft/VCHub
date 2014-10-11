@@ -56,16 +56,13 @@ public class EnderdragonPerk implements Perk, Listener {
         dragon.addTrait(Controllable.class);
         dragon.getEntity().setPassenger(player);
         using.put(player.getName(), dragon);
-        BukkitTask task = Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                if(!using.containsKey(player.getName()))
-                    return;
-                NPC dragon = using.get(player.getName());
-                dragon.destroy();
-                using.remove(player.getName());
-                tasks.remove(player.getName());
-            }
+        BukkitTask task = Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), () -> {
+            if(!using.containsKey(player.getName()))
+                return;
+            NPC dragon1 = using.get(player.getName());
+            dragon1.destroy();
+            using.remove(player.getName());
+            tasks.remove(player.getName());
         }, 20 * 30l);
         tasks.put(player.getName(), task);
     }

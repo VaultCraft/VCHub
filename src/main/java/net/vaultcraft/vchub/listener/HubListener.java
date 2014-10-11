@@ -173,12 +173,7 @@ public class HubListener implements Listener {
             Vector vec = entity.getEyeLocation().getDirection().multiply(15.0).setY(1.0);
             entity.setVelocity(vec);
             cannotUse.add(entity);
-            Runnable remove = new Runnable() {
-                @Override
-                public void run() {
-                    cannotUse.remove(entity);
-                }
-            };
+            Runnable remove = () -> cannotUse.remove(entity);
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
         }
     }

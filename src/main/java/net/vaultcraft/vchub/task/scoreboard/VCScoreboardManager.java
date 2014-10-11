@@ -23,21 +23,19 @@ public class VCScoreboardManager {
     private static HashMap<Player, VCScoreboardController> boards = new HashMap<>();
 
     public static void init() {
-        Runnable ticker = new Runnable() {
-            public void run() {
-                List<Player> remove = Lists.newArrayList();
-                for (Player key : boards.keySet()) {
-                    if (!(key.isOnline()) || User.fromPlayer(key) == null)
-                        remove.add(key);
-                    else {
-                        VCScoreboardController value = boards.get(key);
-                        value.run();
-                    }
+        Runnable ticker = () -> {
+            List<Player> remove = Lists.newArrayList();
+            for (Player key : boards.keySet()) {
+                if (!(key.isOnline()) || User.fromPlayer(key) == null)
+                    remove.add(key);
+                else {
+                    VCScoreboardController value = boards.get(key);
+                    value.run();
                 }
-
-                for (Player player : remove)
-                    boards.remove(player);
             }
+
+            for (Player player : remove)
+                boards.remove(player);
         };
         Bukkit.getScheduler().scheduleSyncRepeatingTask(VCHub.getInstance(), ticker, 3, 3);
     }

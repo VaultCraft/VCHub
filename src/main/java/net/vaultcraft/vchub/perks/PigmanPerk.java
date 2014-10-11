@@ -99,19 +99,16 @@ public class PigmanPerk implements Perk, Listener {
             fire.setVelocity(player.getLocation().getDirection().multiply(1.2).add(new Vector((Math.random() * 0.3) - 0.15, (Math.random() * 0.3) - 0.15, (Math.random() * 0.3) - 0.15)));
             items.add(fire);
             player.getWorld().playSound(player.getLocation(), Sound.BLAZE_BREATH, 1, -5);
-            Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    if(Math.random() > 0.8) {
-                        try {
-                            FireworkEffectPlayer.playFirework(fire.getWorld(), fire.getLocation(), random());
-                        } catch (Exception e) {
-                            Logger.error(VCHub.getInstance(), e);
-                        }
+            Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), () -> {
+                if(Math.random() > 0.8) {
+                    try {
+                        FireworkEffectPlayer.playFirework(fire.getWorld(), fire.getLocation(), random());
+                    } catch (Exception e) {
+                        Logger.error(VCHub.getInstance(), e);
                     }
-                    fire.remove();
-                    items.remove(fire);
                 }
+                fire.remove();
+                items.remove(fire);
             }, 50l);
             Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), this, delay);
         }
