@@ -12,10 +12,8 @@ public class StatusBarTask implements Runnable {
     private static int index = 0;
     private static int padding = 250;
     private static String[] messages = {
-            "&7Be sure to vote everyday! You can vote by using the command \"&e&l/vote&7\"!",
-            "&7Having troubles? Online staff members are always available to help!",
-            "&7Visit our website at \"&e&lhttp://vaultcraft.net&7\".",
-            "&7Donate today with \"&e&l/buy&7\"!"
+            "&7Welcome to &d&lVaultCraft&7! Visit our website at &dvaultcraft.net&7. Have fun!",
+            "&7There is currently a &d20% &7off sale! Use the code &dspooky &7at &dstore.vaultcraft.net &7or use &d/buy&7."
     };
     private static String current_message = messages[0];
 
