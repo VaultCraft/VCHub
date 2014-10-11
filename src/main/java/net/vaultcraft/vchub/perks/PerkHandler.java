@@ -150,7 +150,7 @@ public class PerkHandler implements Listener {
     }
 
     enum PerkTitle {
-        PERK_MENU(ChatColor.GREEN + "Perks menu!");
+        PERK_MENU(ChatColor.GREEN + "Perks Menu -" + ChatColor.GOLD + "store.vaultcraft.net" + ChatColor.GREEN + "!");
 
         String s;
 
