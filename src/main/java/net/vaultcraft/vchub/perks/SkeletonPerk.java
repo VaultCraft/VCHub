@@ -27,7 +27,7 @@ import org.bukkit.util.Vector;
  */
 public class SkeletonPerk implements Perk, Listener {
 
-    private static ItemStack active = VCItems.build(Material.BOW, "&f&lKing Skeleton Bow", "&fPrepare your bow for the", "&fmaster of all projectiles", "&fShoots up to 5 arrows at once!");
+    private static ItemStack active = VCItems.build(Material.BOW, "&f&lKing Skeleton Bow", "&fPrepare your bow for the", "&fmaster of all projectiles.", "&fShoots up to 5 arrows at once!");
 
     public SkeletonPerk(Plugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
