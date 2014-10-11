@@ -170,7 +170,7 @@ public class HubListener implements Listener {
                 return;
 
             final LivingEntity entity = event.getPlayer();
-            Vector vec = entity.getEyeLocation().getDirection().multiply(15.0).setY(1.0);
+            Vector vec = entity.getEyeLocation().getDirection().multiply(10.0).setY(1.0);
             entity.setVelocity(vec);
             cannotUse.add(entity);
             Runnable remove = () -> cannotUse.remove(entity);
