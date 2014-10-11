@@ -25,7 +25,7 @@ public class VCScoreboardController implements Runnable {
 
         header = new VCTicker(ChatColor.BOLD, "Welcome "+player.getName()+" to VaultCraft!               ", 14);
 
-        text.put(12, "&7----------------");
+        text.put(12, "&7&m----------------");
         text.put(11, "&5&lTokens");
         text.put(10, "&7{tokens}");
         text.put(9, " ");
