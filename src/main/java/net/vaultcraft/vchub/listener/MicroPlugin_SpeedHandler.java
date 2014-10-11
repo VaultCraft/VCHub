@@ -62,11 +62,7 @@ public class MicroPlugin_SpeedHandler implements Listener {
                 Form.at(player, "Speed boost toggled &aon" + Prefix.VAULT_CRAFT.getChatColor() + "!");
             }
 
-            Runnable run = new Runnable() {
-                public void run() {
-                    cannotUse.remove(player);
-                }
-            };
+            Runnable run = () -> cannotUse.remove(player);
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), run, 20*5);
             cannotUse.add(player);
 

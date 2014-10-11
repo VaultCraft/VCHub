@@ -45,26 +45,20 @@ public class CreeperPerk implements Perk {
         vector.multiply(5);
         creeper.getNavigator().setTarget(new Location(player.getWorld(), vector.getX(), player.getLocation().getY(), vector.getZ()));
         using.add(player.getName());
-        Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                final Location loc = creeper.getStoredLocation();
+        Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), () -> {
+            final Location loc = creeper.getStoredLocation();
 
-                Particles.EXPLODE.sendToLocation(creeper.getEntity().getLocation(), 1F, 1F, 1F, 1, 10);
-                Particles.RED_DUST.sendToLocation(creeper.getEntity().getLocation(), 1F, 1F, 1F, 1, 100);
-                Particles.NOTE.sendToLocation(creeper.getEntity().getLocation(), 1.5F, 1.5F, 1.5F, 1, 90);
-                for (int i = 0; i < (int)(Math.random()*10)+15; i++) {
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), new Runnable() {
-                        @Override
-                        public void run() {
-                            Location ranged = loc.clone().add((Math.random()*10)-5, Math.random()*10, (Math.random()*10)-5);
-                            FireworkEffectPlayer.playFirework(loc.getWorld(), ranged, random());
-                        }
-                    }, (int)(Math.random()*20));
-                }
-                creeper.destroy();
-                using.remove(player.getName());
+            Particles.EXPLODE.sendToLocation(creeper.getEntity().getLocation(), 1F, 1F, 1F, 1, 10);
+            Particles.RED_DUST.sendToLocation(creeper.getEntity().getLocation(), 1F, 1F, 1F, 1, 100);
+            Particles.NOTE.sendToLocation(creeper.getEntity().getLocation(), 1.5F, 1.5F, 1.5F, 1, 90);
+            for (int i = 0; i < (int)(Math.random()*10)+15; i++) {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), () -> {
+                    Location ranged = loc.clone().add((Math.random() * 10) - 5, Math.random() * 10, (Math.random() * 10) - 5);
+                    FireworkEffectPlayer.playFirework(loc.getWorld(), ranged, random());
+                }, (int)(Math.random()*20));
             }
+            creeper.destroy();
+            using.remove(player.getName());
         }, 20 * 5l);
     }
 
