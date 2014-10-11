@@ -22,7 +22,6 @@ public class VCScoreboardController implements Runnable {
     public VCScoreboardController(Player player) {
         board = new VCScoreboard(player);
         this.player = player;
-        text.put(12, "&7&m----------------");
         text.put(11, "&5&lTokens");
         text.put(10, "&7{tokens}");
         text.put(9, " ");
@@ -36,7 +35,6 @@ public class VCScoreboardController implements Runnable {
         text.put(1, "&7vaultcraft.net");
     }
 
-    private VCTicker header;
     private HashMap<Integer, String> text = new HashMap<>();
 
     public void run() {

@@ -2,13 +2,8 @@ package net.vaultcraft.vchub.task.scoreboard;
 
 import com.google.common.collect.Lists;
 import net.vaultcraft.vchub.VCHub;
-import net.vaultcraft.vcutils.scoreboard.VCDisplay;
-import net.vaultcraft.vcutils.scoreboard.VCObjective;
-import net.vaultcraft.vcutils.scoreboard.VCScore;
-import net.vaultcraft.vcutils.scoreboard.VCTicker;
 import net.vaultcraft.vcutils.user.User;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -37,7 +32,7 @@ public class VCScoreboardManager {
             for (Player player : remove)
                 boards.remove(player);
         };
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(VCHub.getInstance(), ticker, 3, 3);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(VCHub.getInstance(), ticker, 5, 5);
     }
 
     public static void addPlayer(Player player) {
