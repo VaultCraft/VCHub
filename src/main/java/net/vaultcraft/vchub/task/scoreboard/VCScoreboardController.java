@@ -41,7 +41,7 @@ public class VCScoreboardController implements Runnable {
 
     public void run() {
         if (current == null) {
-            current = new VCObjective("&5&lVault&oCraft");
+            current = new VCObjective(ChatColor.translateAlternateColorCodes('&',"&5&lVault&oCraft"));
 
             for (int x : text.keySet()) {
                 String txt = text.get(x);
@@ -50,8 +50,6 @@ public class VCScoreboardController implements Runnable {
 
             current.addScoreboardAndDisplay(board, VCDisplay.SIDEBAR);
         }
-
-        current.setName(header.tick());
 
         for (int x : text.keySet()) {
             VCScore score = current.getFirstScore(x);
