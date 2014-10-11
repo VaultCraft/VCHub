@@ -67,14 +67,12 @@ public class MicroPlugin_PearlHandler implements Listener {
                     make.setCustomName(player.getName() + "'s wolf");
                     make.setCustomNameVisible(true);
 
-                    Runnable destroy = new Runnable() {
-                        public void run() {
-                            if (deny.contains(player))
-                                deny.remove(player);
+                    Runnable destroy = () -> {
+                        if (deny.contains(player))
+                            deny.remove(player);
 
-                            make.remove();
-                            Particles.WITCH_MAGIC.sendToLocation(make.getLocation(), 0.5f, 0.5f, 0.5f, 1, 50);
-                        }
+                        make.remove();
+                        Particles.WITCH_MAGIC.sendToLocation(make.getLocation(), 0.5f, 0.5f, 0.5f, 1, 50);
                     };
                     Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), destroy, 20*4);
                 }
@@ -87,13 +85,11 @@ public class MicroPlugin_PearlHandler implements Listener {
             player.getInventory().remove(VCItems.PEARL_OF_TELEPORTATION);
             player.updateInventory();
 
-            Runnable check = new Runnable() {
-                public void run() {
-                    if (proj.isDead())
-                        return;
+            Runnable check = () -> {
+                if (proj.isDead())
+                    return;
 
-                    onProjectileHit(new ProjectileHitEvent(proj));
-                }
+                onProjectileHit(new ProjectileHitEvent(proj));
             };
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), check, 20*10);
 

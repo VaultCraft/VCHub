@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * Created by tacticalsk8er on 7/28/2014.
  */
 public class SlimePerk implements Perk {
-    private static ItemStack active = VCItems.build(Material.SLIME_BALL, "&a&lSlime Cannon", "&fLaunch a barrage of slimes at your target!");
+    private static ItemStack active = VCItems.build(Material.SLIME_BALL, "&a&lSlime Cannon", "&fLaunch a barrage of", "&fslimes at your target!");
     private static HashMap<String, Long> cantUse = new HashMap<>();
 
     @Override
@@ -56,18 +56,15 @@ public class SlimePerk implements Perk {
             Vector vector = player.getEyeLocation().getDirection().multiply(1.5).add(new Vector((Math.random() * spread) - (spread / 2), 0, (Math.random() * spread) - (spread / 2))).setY(1.2);
             slime.setVelocity(vector.multiply(1.5));
             slimes.add(slime);
-            Runnable delay = new Runnable() {
-                @Override
-                public void run() {
-                    Location at = slime.getLocation();
-                    try {
-                        FireworkEffectPlayer.playFirework(at.getWorld(), at, FireworkEffect.builder().withColor(Color.LIME).withFade(Color.GREEN).with(FireworkEffect.Type.BURST).trail(true).build());
-                    } catch (Exception e) {
-                        Logger.error(VCHub.getInstance(), e);
-                    }
-                    slime.remove();
-                    slimes.remove(slime);
+            Runnable delay = () -> {
+                Location at = slime.getLocation();
+                try {
+                    FireworkEffectPlayer.playFirework(at.getWorld(), at, FireworkEffect.builder().withColor(Color.LIME).withFade(Color.GREEN).with(FireworkEffect.Type.BURST).trail(true).build());
+                } catch (Exception e) {
+                    Logger.error(VCHub.getInstance(), e);
                 }
+                slime.remove();
+                slimes.remove(slime);
             };
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), delay, 10 + (i * 2));
         }

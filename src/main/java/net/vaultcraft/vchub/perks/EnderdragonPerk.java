@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public class EnderdragonPerk implements Perk, Listener {
 
-    private static ItemStack active = VCItems.build(Material.DRAGON_EGG, (byte) 0, "&5&lEnder Dragon Mount", "&fRide around on an ender dragon!", "&fSecondary ability to shoot fire! (To activate, drop this item)");
+    private static ItemStack active = VCItems.build(Material.DRAGON_EGG, (byte) 0, "&5&lEnder Dragon Mount", "&fRide around on an ender dragon!", "&fSecondary ability to shoot fire!", "&f(To activate, drop this item)");
     private static HashMap<String, NPC> using = new HashMap<>();
     private static HashMap<String, BukkitTask> tasks = new HashMap<>();
 
@@ -56,16 +56,13 @@ public class EnderdragonPerk implements Perk, Listener {
         dragon.addTrait(Controllable.class);
         dragon.getEntity().setPassenger(player);
         using.put(player.getName(), dragon);
-        BukkitTask task = Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                if(!using.containsKey(player.getName()))
-                    return;
-                NPC dragon = using.get(player.getName());
-                dragon.destroy();
-                using.remove(player.getName());
-                tasks.remove(player.getName());
-            }
+        BukkitTask task = Bukkit.getScheduler().runTaskLater(VCHub.getInstance(), () -> {
+            if(!using.containsKey(player.getName()))
+                return;
+            NPC dragon1 = using.get(player.getName());
+            dragon1.destroy();
+            using.remove(player.getName());
+            tasks.remove(player.getName());
         }, 20 * 30l);
         tasks.put(player.getName(), task);
     }

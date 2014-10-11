@@ -48,6 +48,10 @@ public class HubListener implements Listener {
 
         player.teleport(VCHub.getInstance().getSpawn());
 
+        if(!player.getGameMode().equals(GameMode.SURVIVAL)) {
+            player.setGameMode(GameMode.SURVIVAL);
+        }
+
         VCHub.async_player_map.put(player.getUniqueId(), player);
         player.getInventory().clear();
 
@@ -169,12 +173,7 @@ public class HubListener implements Listener {
             Vector vec = entity.getEyeLocation().getDirection().multiply(15.0).setY(1.0);
             entity.setVelocity(vec);
             cannotUse.add(entity);
-            Runnable remove = new Runnable() {
-                @Override
-                public void run() {
-                    cannotUse.remove(entity);
-                }
-            };
+            Runnable remove = () -> cannotUse.remove(entity);
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
         }
     }

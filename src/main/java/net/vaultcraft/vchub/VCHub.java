@@ -56,9 +56,6 @@ public class VCHub extends JavaPlugin {
         return instance;
     }
 
-    //gui
-    public static Inventory help = Bukkit.createInventory(null, 45, "VaultCraft Hub Help Menu");
-
     public void onEnable() {
         instance = this;
 
@@ -78,36 +75,32 @@ public class VCHub extends JavaPlugin {
         pvh = new PlayerVisibilityHandler();
         perkHandler = new PerkHandler();
 
-        Runnable dayTask = new Runnable() {
-            public void run() {
-                for (Player player : async_player_map.values()) {
-                    try {
-                        User user = User.fromPlayer(player);
-                        if (user.getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber() + "") == null)
-                            player.setPlayerTime(6000, false);
-                        else if (User.fromPlayer(player).getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber() + "").toLowerCase().equals("true")) {
-                            player.setPlayerTime(6000, false);
-                        } else {
-                            player.setPlayerTime(18000, false);
-                        }
-                    } catch (NullPointerException ex) {
-                        async_player_map.remove(player);
+        Runnable dayTask = () -> {
+            for (Player player : async_player_map.values()) {
+                try {
+                    User user = User.fromPlayer(player);
+                    if (user.getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber() + "") == null)
+                        player.setPlayerTime(6000, false);
+                    else if (User.fromPlayer(player).getUserdata(UserPrefs.FORCE_DAYTIME.getSerialNumber() + "").toLowerCase().equals("true")) {
+                        player.setPlayerTime(6000, false);
+                    } else {
+                        player.setPlayerTime(18000, false);
                     }
+                } catch (NullPointerException ex) {
+                    async_player_map.remove(player);
                 }
             }
         };
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, dayTask, 20, 20);
 
-        Runnable tokenTask = new Runnable() {
-            public void run() {
-                for (Player player : async_player_map.values()) {
-                    //update item name
-                    try {
-                        player.getInventory().setItem(5, VCItems.build(Material.EMERALD, "&6&lTotal Tokens: &f&l" + User.fromPlayer(player).getTokens(), "&5Buy more tokens today!", "&5Use &e\"/buy\" &5for more information"));
-                        player.updateInventory();
-                    } catch (NullPointerException ex) {
-                        async_player_map.remove(player);
-                    }
+        Runnable tokenTask = () -> {
+            for (Player player : async_player_map.values()) {
+                //update item name
+                try {
+                    player.getInventory().setItem(5, VCItems.build(Material.EMERALD, "&6&lTotal Tokens: &f&l" + User.fromPlayer(player).getTokens(), "&5Buy more tokens today!", "&5Use &e\"/buy\" &5for more information"));
+                    player.updateInventory();
+                } catch (NullPointerException ex) {
+                    async_player_map.remove(player);
                 }
             }
         };

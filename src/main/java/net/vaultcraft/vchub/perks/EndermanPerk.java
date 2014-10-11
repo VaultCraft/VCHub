@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 public class EndermanPerk implements Perk, Listener {
 
-    private static ItemStack activate = VCItems.build(Material.EYE_OF_ENDER, "&5&lEnder Force", "&fPickup and throw a block!");
+    private static ItemStack activate = VCItems.build(Material.EYE_OF_ENDER, "&5&lEnder Force", "&fPick up and throw a block!");
     private static HashMap<String, Long> cantUse = new HashMap<>();
     private static List<Player> using = Lists.newArrayList();
 
