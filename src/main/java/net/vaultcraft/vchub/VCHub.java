@@ -56,9 +56,6 @@ public class VCHub extends JavaPlugin {
         return instance;
     }
 
-    //gui
-    public static Inventory help = Bukkit.createInventory(null, 27, "VaultCraft Help Menu");
-
     public void onEnable() {
         instance = this;
 
