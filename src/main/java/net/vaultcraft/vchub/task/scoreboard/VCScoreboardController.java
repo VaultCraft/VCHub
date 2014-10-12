@@ -22,6 +22,7 @@ public class VCScoreboardController implements Runnable {
     public VCScoreboardController(Player player) {
         board = new VCScoreboard(player);
         this.player = player;
+        text.put(12, " ");
         text.put(11, "&5&lTokens");
         text.put(10, "&7{tokens}");
         text.put(9, " ");
