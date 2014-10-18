@@ -32,7 +32,7 @@ public class VCScoreboardManager {
             for (Player player : remove)
                 boards.remove(player);
         };
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(VCHub.getInstance(), ticker, 5, 5);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(VCHub.getInstance(), ticker, 5*20, 5*20);
     }
 
     public static void addPlayer(Player player) {
