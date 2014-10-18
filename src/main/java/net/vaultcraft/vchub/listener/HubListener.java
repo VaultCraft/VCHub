@@ -183,7 +183,7 @@ public class HubListener implements Listener {
         else if (event.getTo().getBlock().getType().equals(Material.PORTAL)) {
             //Check portal and do warp
             for (String key : ProtectionManager.getInstance().getRegions().keySet()) {
-                if (!(key.startsWith("PORT")))
+                if (!(key.startsWith("port")))
                     continue;
 
                 ProtectedArea area = ProtectionManager.getInstance().getRegions().get(key);
