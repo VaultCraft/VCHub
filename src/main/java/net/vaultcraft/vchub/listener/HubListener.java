@@ -1,6 +1,7 @@
 package net.vaultcraft.vchub.listener;
 
 import com.google.common.collect.Lists;
+import net.vaultcraft.vcessentials.VCEssentials;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
@@ -8,6 +9,9 @@ import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vcutils.VCUtils;
 import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
+import net.vaultcraft.vcutils.protection.Area;
+import net.vaultcraft.vcutils.protection.ProtectedArea;
+import net.vaultcraft.vcutils.protection.ProtectionManager;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
@@ -175,6 +179,20 @@ public class HubListener implements Listener {
             cannotUse.add(entity);
             Runnable remove = () -> cannotUse.remove(entity);
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
+        }
+        else if (event.getTo().getBlock().getType().equals(Material.PORTAL)) {
+            //Check portal and do warp
+            for (String key : ProtectionManager.getInstance().getRegions().keySet()) {
+                if (!(key.startsWith("PORT")))
+                    continue;
+
+                ProtectedArea area = ProtectionManager.getInstance().getRegions().get(key);
+                if (area.getArea().isInArea(event.getTo())) {
+                    String region = key.substring(key.indexOf("_")+1);
+
+                    VCEssentials.getInstance().sendPlayerToServer(event.getPlayer(), region);
+                }
+            }
         }
     }
 
