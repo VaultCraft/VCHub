@@ -61,7 +61,7 @@ public class PerkHandler implements Listener {
     private static List<Player> inv_open = Lists.newArrayList();
     private static HashMap<Player, Perk> confirm = new HashMap<>();
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = false)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (event.getAction().equals(Action.PHYSICAL))

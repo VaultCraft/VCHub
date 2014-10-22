@@ -182,7 +182,7 @@ public class HubListener implements Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = false)
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getAction().equals(Action.PHYSICAL))
             return;
