@@ -166,7 +166,6 @@ public class HubListener implements Listener {
     }
 
     private List<Entity> cannotUse = Lists.newArrayList();
-    private List<Player> movePortDeny = Lists.newArrayList();
 
     @EventHandler
     public void onPlayerInteract(PlayerMoveEvent event) {
@@ -180,23 +179,6 @@ public class HubListener implements Listener {
             cannotUse.add(entity);
             Runnable remove = () -> cannotUse.remove(entity);
             Bukkit.getScheduler().scheduleSyncDelayedTask(VCHub.getInstance(), remove, 15);
-        }
-        else if (event.getTo().getBlock().getType().equals(Material.PORTAL)) {
-            if (movePortDeny.contains(event.getPlayer()))
-                return;
-
-            //Check portal and do warp
-            for (String key : ProtectionManager.getInstance().getRegions().keySet()) {
-                if (!(key.startsWith("port")))
-                    continue;
-
-                ProtectedArea area = ProtectionManager.getInstance().getRegions().get(key);
-                if (area.getArea().isInArea(event.getTo())) {
-                    String region = key.substring(key.indexOf("_")+1);
-
-                    VCEssentials.getInstance().sendPlayerToServer(event.getPlayer(), region);
-                }
-            }
         }
     }
 
