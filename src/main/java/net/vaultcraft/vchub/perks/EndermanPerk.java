@@ -130,7 +130,7 @@ public class EndermanPerk implements Perk, Listener {
 
     @EventHandler
     public void onProjectileClick(PlayerInteractEvent event) {
-        if (event.getMaterial() == Material.EYE_OF_ENDER && using.contains(event.getPlayer())) {
+        if (event.getPlayer().getItemInHand().getType().equals(Material.EYE_OF_ENDER)) {
             event.setCancelled(true);
         }
     }
