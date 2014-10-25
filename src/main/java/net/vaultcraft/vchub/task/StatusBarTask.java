@@ -1,6 +1,7 @@
 package net.vaultcraft.vchub.task;
 
-import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
+import net.vaultcraft.vcutils.bossbar.BarAPI;
+//import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
 import org.bukkit.ChatColor;
 
 /**
@@ -34,6 +35,7 @@ public class StatusBarTask implements Runnable {
                 rPadding+=" ";
             }
         }
-        StatusBarAPI.setAllStatusBars(lPadding + ChatColor.translateAlternateColorCodes('&', current_message) + rPadding, (float)100);
+        BarAPI.setMessage(lPadding + ChatColor.translateAlternateColorCodes('&', current_message) + rPadding, (float)100);
+        //StatusBarAPI.setAllStatusBars(lPadding + ChatColor.translateAlternateColorCodes('&', current_message) + rPadding, (float)100);
     }
 }

@@ -8,8 +8,6 @@ import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vcutils.VCUtils;
-import net.vaultcraft.vcutils.bossbar.StatusBarAPI;
-import net.vaultcraft.vcutils.protection.Area;
 import net.vaultcraft.vcutils.protection.ProtectedArea;
 import net.vaultcraft.vcutils.protection.ProtectionManager;
 import net.vaultcraft.vcutils.uncommon.Particles;
@@ -78,7 +76,6 @@ public class HubListener implements Listener {
         //Double Jump
         player.setAllowFlight(true);
 
-        StatusBarAPI.setStatusBar(player, "", 0f);
         VCScoreboardManager.addPlayer(player);
     }
 
