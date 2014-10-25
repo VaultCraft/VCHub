@@ -15,6 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -125,6 +127,15 @@ public class EndermanPerk implements Perk, Listener {
             event.setCancelled(true);
         }
     }
+
+    @EventHandler
+    public void onProjectileClick(PlayerInteractEvent event) {
+        if (event.getPlayer().getItemInHand().getType().equals(Material.EYE_OF_ENDER)) {
+            event.setCancelled(true);
+        }
+    }
+
+
 
     private static FireworkEffect random() {
         Color[] c = {Color.PURPLE, Color.FUCHSIA};

@@ -72,6 +72,8 @@ public class VCHub extends JavaPlugin {
         CommandManager.addCommand(new VCHelp("help", Group.COMMON));
         CommandManager.addCommand(new VCRules("rules", Group.COMMON));
 
+        CommandManager.removeCommand("hat");
+
         pvh = new PlayerVisibilityHandler();
         perkHandler = new PerkHandler();
 
