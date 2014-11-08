@@ -115,7 +115,7 @@ public class VCHub extends JavaPlugin {
             spawn = new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
         }
 
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new StatusBarTask(), 1, 1);
+        //Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new StatusBarTask(), 1, 1);
         VCScoreboardManager.init();
     }
 
