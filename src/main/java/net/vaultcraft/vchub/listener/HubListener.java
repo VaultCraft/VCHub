@@ -1,16 +1,12 @@
 package net.vaultcraft.vchub.listener;
 
 import com.google.common.collect.Lists;
-import net.vaultcraft.vcessentials.VCEssentials;
 import net.vaultcraft.vchub.VCHub;
 import net.vaultcraft.vchub.VCItems;
 import net.vaultcraft.vchub.perks.Perk;
 import net.vaultcraft.vchub.perks.PerkHandler;
 import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vcutils.VCUtils;
-import net.vaultcraft.vcutils.protection.ProtectedArea;
-import net.vaultcraft.vcutils.protection.ProtectionManager;
-import net.vaultcraft.vcutils.title.Title;
 import net.vaultcraft.vcutils.title.TitleObject;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.Group;
