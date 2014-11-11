@@ -10,6 +10,7 @@ import net.vaultcraft.vchub.task.scoreboard.VCScoreboardManager;
 import net.vaultcraft.vcutils.VCUtils;
 import net.vaultcraft.vcutils.protection.ProtectedArea;
 import net.vaultcraft.vcutils.protection.ProtectionManager;
+import net.vaultcraft.vcutils.title.Title;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
@@ -77,6 +78,8 @@ public class HubListener implements Listener {
         player.setAllowFlight(true);
 
         VCScoreboardManager.addPlayer(player);
+
+        new Title("Welcome " + player.getName() + "!", "To VaultCraft Network").fadeIn(10).fadeOut(30).sendTitle(player);
     }
 
     @EventHandler
