@@ -11,6 +11,7 @@ import net.vaultcraft.vcutils.VCUtils;
 import net.vaultcraft.vcutils.protection.ProtectedArea;
 import net.vaultcraft.vcutils.protection.ProtectionManager;
 import net.vaultcraft.vcutils.title.Title;
+import net.vaultcraft.vcutils.title.TitleObject;
 import net.vaultcraft.vcutils.uncommon.Particles;
 import net.vaultcraft.vcutils.user.Group;
 import net.vaultcraft.vcutils.user.User;
@@ -79,7 +80,10 @@ public class HubListener implements Listener {
 
         VCScoreboardManager.addPlayer(player);
 
-        new Title("Welcome " + player.getName() + "!", "To VaultCraft Network").fadeIn(10).fadeOut(30).sendTitle(player);
+        TitleObject to = new TitleObject(ChatColor.translateAlternateColorCodes('&', "&5Welcome &7" + player.getName() + "&5!"), ChatColor.translateAlternateColorCodes('&', "&7To &5&nVaultCraft &7Network!"));
+        to.setFadeIn(5);
+        to.setFadeOut(30);
+        to.send(player);
     }
 
     @EventHandler
