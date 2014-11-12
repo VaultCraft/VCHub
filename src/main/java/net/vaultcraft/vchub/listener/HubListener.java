@@ -76,7 +76,7 @@ public class HubListener implements Listener {
 
         VCScoreboardManager.addPlayer(player);
 
-        TitleObject to = new TitleObject(ChatColor.translateAlternateColorCodes('&', "&5Welcome &7" + player.getName() + "&5!"), ChatColor.translateAlternateColorCodes('&', "&7To &5&nVaultCraft &7Network!"));
+        TitleObject to = new TitleObject(ChatColor.translateAlternateColorCodes('&', "&5Welcome &7" + player.getName() + "&5!"), ChatColor.translateAlternateColorCodes('&', "&7To &5&nVaultCraft&7 Network!"));
         to.setFadeIn(5);
         to.setFadeOut(30);
         to.send(player);
